@@ -1,0 +1,2270 @@
+Delivered-To: pivanov@tradingview.com
+Received: by 2002:a05:7108:4821:0:0:0:0 with SMTP id cb33csp3401476gdb;
+        Tue, 26 Jul 2022 08:07:34 -0700 (PDT)
+X-Google-Smtp-Source: AGRyM1t2qfxCUsAE6bU8/9c04y8/63wGL0oyMk+7Ovs+llOyxZGFoSu/D8YWsrPXwdf/+L17TKOs
+X-Received: by 2002:ac5:cb69:0:b0:376:f2f:563e with SMTP id l9-20020ac5cb69000000b003760f2f563emr5119842vkn.23.1658848053904;
+        Tue, 26 Jul 2022 08:07:33 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1658848053; cv=none;
+        d=google.com; s=arc-20160816;
+        b=LUlK2CVuzYYCClUS2/++1bUna6cEqu90BuxCah0m7IZRe7KIF7Fl/wzxPaHzE14iti
+         XydAzKe0sOT76VENs2u+5oN4o3aJI+a3evIxZ+II94/gHbl61Gag/4EalcCrG8tJQcFF
+         R7yyA0fkxpSVqhaOuKzo8np9XMtCRopY7xK9t1/E36q41tqFzD6TV6ktYECgVG6rhkn7
+         Vsourzrcc1VSevHg+M+ys2kjzfBOR57LZD0K5zqQhL/FQCcmFjMA9juMBPnEzvEd3hxW
+         5YOJnL/en5WV++aObYQT8cr/M7B4XDdnga5GljaoFyWTGb/egWvqESKtUzSQ7rXO7IDC
+         wu8g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=list-unsubscribe:mime-version:subject:message-id:to:reply-to:from
+         :date:dkim-signature:dkim-signature;
+        bh=kGeZYLEmcCPqPHdTSi8e02KoqKtri4J4MSOa9WOmAmQ=;
+        b=XrebMqnvwKJ+nJ3mGI0gkZOD20d+oG6pxpZ4P32lWOQ3Yz7P+JCvTUU9UwaFhX3NJ7
+         hIoTd/qv74wzkgQaceNADhApSeiXovoIt6KLVLgAMKyPgEOHxEw1vcoTCo2vaJ4hIjBi
+         gRU7jLl9CfHSZfDxbn7a5DjqSNHWqv+tP+0NbFmLg5Jsiw0UlUpvRdnvonmT7u9OjFvD
+         GN0WyN/ukTiAdK58U+YjGlL/J7KaPLrVy5fcwriknACTdRnexiXZVyEuMavZiYsdevo2
+         iTQweNWH1VuA7DP6LxUDzEx/5iXPaP54Iyl7SLa2LasQgsug0VuKphj0IC8DkHPA57jC
+         5bVg==
+ARC-Authentication-Results: i=1; mx.google.com;
+       dkim=pass header.i=@e.litmus.com header.s=m1 header.b=j6pdOkeL;
+       dkim=pass header.i=@mktdns.com header.s=m1 header.b="S4vK/uOO";
+       spf=pass (google.com: domain of 864-vpz-131.0.36806.0.0.6918.9.4369341-191@m.litmus.com designates 192.28.145.52 as permitted sender) smtp.mailfrom=864-VPZ-131.0.36806.0.0.6918.9.4369341-191@m.litmus.com;
+       dmarc=pass (p=REJECT sp=REJECT dis=NONE) header.from=e.litmus.com
+Return-Path: <864-VPZ-131.0.36806.0.0.6918.9.4369341-191@m.litmus.com>
+Received: from m.litmus.com (m.litmus.com. [192.28.145.52])
+        by mx.google.com with ESMTPS id v22-20020ab02016000000b00384a97c76c7si602317uak.111.2022.07.26.08.07.33
+        for <pivanov@tradingview.com>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Tue, 26 Jul 2022 08:07:33 -0700 (PDT)
+Received-SPF: pass (google.com: domain of 864-vpz-131.0.36806.0.0.6918.9.4369341-191@m.litmus.com designates 192.28.145.52 as permitted sender) client-ip=192.28.145.52;
+Authentication-Results: mx.google.com;
+       dkim=pass header.i=@e.litmus.com header.s=m1 header.b=j6pdOkeL;
+       dkim=pass header.i=@mktdns.com header.s=m1 header.b="S4vK/uOO";
+       spf=pass (google.com: domain of 864-vpz-131.0.36806.0.0.6918.9.4369341-191@m.litmus.com designates 192.28.145.52 as permitted sender) smtp.mailfrom=864-VPZ-131.0.36806.0.0.6918.9.4369341-191@m.litmus.com;
+       dmarc=pass (p=REJECT sp=REJECT dis=NONE) header.from=e.litmus.com
+X-MSFBL: ptHj/DNX9OvvHaalM3bK12xubaQ3scTNapCPEQpbEDA=|eyJiIjoiZHZwLTE5Mi0
+	yOC0xNDUtNTIiLCJnIjoiYmctYWJkLTk5NiIsInUiOiI4NjQtVlBaLTEzMTowOjg
+	3NTk6NjI1ODA6MjQyMTc5OjY5MTg6OTozNjgwNjo0MzY5MzQxLTE5MSIsInIiOiJ
+	waXZhbm92QHRyYWRpbmd2aWV3LmNvbSJ9
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1658848053;
+	s=m1; d=e.litmus.com; i=@e.litmus.com;
+	h=Content-Type:MIME-Version:Subject:To:From:Date;
+	bh=kGeZYLEmcCPqPHdTSi8e02KoqKtri4J4MSOa9WOmAmQ=;
+	b=j6pdOkeLJGMOiaROjMuv0yB1Mm3Jo5yzMh/6NJ16uHpz+pgYssh9ZjXSKNke37w5
+	6//7vu1AHItIXpD53uuI/ONFSy8TQbcvh1ATb0ZpdMdo+lBdnOx1k1n4gDT4t1OqVvQ
+	MykD7DB923Zo4pmqVRcNewUqQtFRl41LJhRWcgKM=
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1658848053;
+	s=m1; d=mktdns.com; i=@mktdns.com;
+	h=Content-Type:MIME-Version:Subject:To:From:Date;
+	bh=kGeZYLEmcCPqPHdTSi8e02KoqKtri4J4MSOa9WOmAmQ=;
+	b=S4vK/uOOSgR5T+9wFJlu1MQLfDZP1sKUMoJgXZvjfY0sKxJRpdAf+CzkvIpIDAiW
+	2pzBV2lyQh2FawQY+vKvsOVZTEzpxz+DG33FiAcStdLhwI5kOwRaX/OyPhkIEopGppm
+	1HmpMfSttNL5/t7KdT899Uvx9X/dQL0dnHL6nubk=
+Date: Tue, 26 Jul 2022 10:07:33 -0500 (CDT)
+From: Litmus News <hello@e.litmus.com>
+Reply-To: hello@litmus.com
+To: pivanov@tradingview.com
+Message-ID: <542552678.78772570.1658848053318@abmktmail-batch1b.marketo.org>
+Subject: =?UTF-8?Q?=F0=9F=8F=95=EF=B8=8F?= Email adventure calls!
+MIME-Version: 1.0
+Content-Type: multipart/alternative; 
+	boundary="----=_Part_78772569_1594268415.1658848053317"
+X-Binding: bg-abd-996
+X-MarketoID: 864-VPZ-131:0:8759:62580:242179:6918:9:36806:4369341-191
+X-Mailfrom: 864-VPZ-131.0.36806.0.0.6918.9.4369341-191@m.litmus.com
+List-Unsubscribe: <mailto:GFLTSWKBGYZW4ZKUJNGVA3JYIZREMRCJM5AT2PI=.36806.6918.9@unsub-ab.mktomail.com>
+X-MktArchive: false
+X-MSYS-API: {"options":{"open_tracking":false,"click_tracking":false}}
+X-MktMailDKIM: true
+
+------=_Part_78772569_1594268415.1658848053317
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+<http://go.litmus.com/ODY0LVZQWi0xMzEAAAGF2gU4NcNEQnfVMCofQxUAceU_7M4eZ87yo=
+IKzZv1TZMWdThIuO_IaqxSJ7NptaH1MoV-6-A0=>
+
+   Login <http://go.litmus.com/ODY0LVZQWi0xMzEAAAGF2gU4NUL-7ZoW9cmQHC7oou=
+htnPZZZBDLq2RVMTp7PPLKBeob6WfSm9uo47Bji1uQaSZu0=>
+Your monthly roundup of the latest email marketing, design, and development=
+ strategies from Litmus.
+<http://go.litmus.com/ODY0LVZQWi0xMzEAAAGF2gU4NRX5aHoywJs3_eWT1e4NDA3tKfbnd=
+uOYv6K5_rvDSTEebTQZeMH0vrMcnkWcjyINfuU=>
+Journey onwards: 7 email personalization quick wins <http://go.litmus.com/O=
+DY0LVZQWi0xMzEAAAGF2gU4Ntpy8JHvJyXQ52UPo62tOVaL08ptsQi_1dGWPoYcdOF83br6tmP1=
+c4ip0ZYoM-tM3bY=>
+Get a front-seat look at simple but powerful email personalization tactics =
+that drive big results.
+Let=E2=80=99s ride =C2=A0 <http://go.litmus.com/ODY0LVZQWi0xMzEAAAGF2gU4NZC=
+oG2UHpABC7YbNK1h0TKHucWiVT5LQoU8jzzkfiU3MyxMQZsok6Heq3RAN-LwqnIk=>
+<http://go.litmus.com/ODY0LVZQWi0xMzEAAAGF2gU4Nbpl8xJJ609w-QMgVyPS2-y1rgskD=
+i3wtmTeGdhGIwd1Aolek-CBl2zQBuEWP9GHCdc=>      Get the latest marketing tr=
+ends, benchmarks, and insights <http://go.litmus.com/ODY0LVZQWi0xMzEAAAGF2g=
+U4NrKS_xaOCz--yKShhrscXfkKNoGj91UwazD1AG8LHjacUbIE_bNVXgYIgHFearYMo=>  =
+    Let us (along with our friends at HubSpot) be your guide through the wi=
+ld world of marketing. Learn how to effectively reach your audience through=
+ social media and video marketing=E2=80=94as well as email.       =C2=A0Exp=
+lore the report =C2=A0 <[[hhttps://www.hubspot.com/state-of-marketing?utm_s=
+ource=hscm-Litmus-SOM-2022-eml?utm_content=cta&utm_campaign=newslette=
+r&utm_source=marketing&utm_medium=email]]>
+<http://go.litmus.com/ODY0LVZQWi0xMzEAAAGF2gU4NUrUZYqc_INeWFBv29jP3SQIY-sti=
+lKisOd5ii3FsRZ0fH7sAFWrmI5039P3WYLJ0Mw=>
+
+
+
+Your ultimate guide to bullet points in=C2=A0email <http://go.litmus.com/OD=
+Y0LVZQWi0xMzEAAAGF2gU4Nr2HAQuwRp6tPqVwO5Fe-8NPw4y8-EZR0NwWJqTnOG2wfsBTZL62T=
+Rllg8SJKVlfwt0=>
+
+
+
+
+Bullet points help guide subscribers as they read and scroll through your e=
+mails. Help them stay on the email trail with tips, how-tos, and more.
+
+
+
+  =C2=A0Brush up your bullet points =C2=A0 <http://go.litmus.com/ODY0LVZQWi=
+0xMzEAAAGF2gU4NSSJ9e75oLK1gtxOpIvBHBImz-y75jQcVVGUg8KkclciZoH8Zr8-bKPYJqn-f=
+W7zCsY=>
+<http://go.litmus.com/ODY0LVZQWi0xMzEAAAGF2gU4NC-DM2O7mAuQESQf0AWQQs016nS2g=
+Jd4uSY2yIab7Ys6sbWxoiArc9H9Djb66tSHu9M=>      Navigating the personalizat=
+ion wilderness <http://go.litmus.com/ODY0LVZQWi0xMzEAAAGF2gU4NNdQndi_GPWV63=
+ZgAWoSks6xx6TUK4TbatmEM2F8KDULpmR6ZvM_lL45RT5wAsAlKxQ=>      Effective pe=
+rsonalization needs to have a sound strategy in place=E2=80=94otherwise, it=
+'s just bells and whistles.       =C2=A0Go beyond the first name =C2=A0 <ht=
+tp://go.litmus.com/ODY0LVZQWi0xMzEAAAGF2gU4NcJh5pSbA5x31Fs6OKKecmgRQrB31FJ1=
+eDqX5gcgGg9YPkab3BS9Jcz0yVF0gwXetgg=>
+<http://go.litmus.com/ODY0LVZQWi0xMzEAAAGF2gU4NsihA2GLWaqvc5YgGR8RONePaThL2=
+pyzZlm5x7e7PTY8PlQQxASgTR9niBtATH-zJYY=>      Lighten your load <http://g=
+o.litmus.com/ODY0LVZQWi0xMzEAAAGF2gU4Nj2vvM13PEDV-jW3stfE9uxfFU4ZoZGtpNKOr6=
+jhcfSnXXD_zxGjllQKREyF3w8MjBw=>      =E2=80=A6 with these 6 free email te=
+mplates. Plus, make the most out of them with tips from Litmus=E2=80=99 own=
+ email team.       =C2=A0Grab your templates =C2=A0 <http://go.litmus.com/O=
+DY0LVZQWi0xMzEAAAGF2gU4Nc7rtMgWPb6D1d5dvrCOHTNCnGHM3UXIXe8-K8n_F1zT_uDUY8lP=
+kR1LuyQx9YcMK14=>
+<http://go.litmus.com/ODY0LVZQWi0xMzEAAAGF2gU4NWaUcnAoHnevfJukiixyaPQ2Y_MNA=
+G57HLJ3TvGUBom3OUr8T4Jd3OQjm_aqNRjO6ok=>
+
+
+
+Email geeks: It=E2=80=99s your time to shine <http://go.litmus.com/ODY0LVZQ=
+Wi0xMzEAAAGF2gU4NfuRqAvLaitJUMSUUWzJ01FBl_3kXJBHPY7pwJ_3hjttvJ0Xdk1ZnwrTfzd=
+KKqEiRwU=>
+
+
+
+
+Share your knowledge and passion about all things email at our annual email=
+ conference, Litmus Live. From DEI and inclusion to email development and o=
+mnichannel marketing=E2=80=94we want to hear from you. Learn how to submit =
+your proposal, today!
+
+
+
+  =C2=A0Step into the spotlight =C2=A0 <http://go.litmus.com/ODY0LVZQWi0xMz=
+EAAAGF2gU4NJ5GkfaqXUahMVe_P1IsZwX4K6_9lp-bT7VjFkG9PkFvv8-iDFw4Cd9f-sD9d1Vzz=
+1I=>
+Top email clients last month <http://go.litmus.com/ODY0LVZQWi0xMzEAAAGF2gU4=
+NDx_tJsADrW8lrx1mJasu_fqKhTPnQ05uGouoMuaXpB3BltWA6z89IWAR1wZvCpsr-c=>    =
+  Apple=E2=80=99s still the most popular email client, but there have been =
+some major shifts in the top 10.                   Apple: 58.3%       =C2=
+=A0        =C2=A0    Gmail: 28.6%       =C2=A0        =C2=A0    Outlook: 4.=
+4%       =C2=A0        =C2=A0    Yahoo Mail: 3.3%       =C2=A0        =C2=
+=A0    Google Android: 1.6%       =C2=A0                        =C2=A0See t=
+he shifts =C2=A0 <http://go.litmus.com/ODY0LVZQWi0xMzEAAAGF2gU4NV7mOUuWirNO=
+Ih_ZejJXYnsT3hcZYaeFurivo5-Ikd_oT8j7hyESOqBqwXo8Sv_x2HU=>
+<http://go.litmus.com/ODY0LVZQWi0xMzEAAAGF2gU4NNNEwNekT_LfRFWSqlkAmy_KUQ3TL=
+PPcMZJ3Wb-1HZfRXwCX4IOkqSJFUl1isOOmY=>      Get lost in our favorite em=
+ails <http://go.litmus.com/ODY0LVZQWi0xMzEAAAGF2gU4NpRSGH-VUcbEwcNC-3Wsjsa3=
+Q2ZccQY4q9opKffSIhhm0aH41c4UDyFbzGfl83sLEmo=>      Brands like MeUndies, =
+Todoist, and Anthropologie sent our favorite emails in June.       =C2=A0Jo=
+urney through our faves =C2=A0 <http://go.litmus.com/ODY0LVZQWi0xMzEAAAGF2g=
+U4NRNDABgxxSE33qOCf0mHqHUGMahYdmeHliAv3fk7xP7LMu9wQcIe9EDB3Gji_AYrk=>
+Virtual     In person     <http://go.litmus.com/ODY0LVZQWi0xMzEAAAGF2gU4NWc=
+nuaIhqyI84iMcPGBUCpCrWouk4xiIJTTZUuHnCqSm19AbcpUACEk0pzy_p9Uf3U8=> Embark=
+ on your next email adventure <http://go.litmus.com/ODY0LVZQWi0xMzEAAAGF2gU=
+4No3CVRad8KuCvTJho11iXAwOVKETCW_5qsLxPTBjrvSt8qxFabQ6gN2VZqPumY6tvcc=> Jo=
+in us for an event or two (IRL and virtually)   <http://go.litmus.com/ODY0L=
+VZQWi0xMzEAAAGF2gU4Npf-WnXpxWWpAL727q6sq_trBKIen65dm67LTQq_IznHQOnBub6mbsXX=
+lrWbkrhnZUw=>  Aug 8-10: eTailBoston <http://go.litmus.com/ODY0LVZQWi0xMz=
+EAAAGF2gU4Nsne31h3obdagdMBBI8O2RbHC5S_ExCSGVwPqgFNi3JWVo_ugJm3uXl1X9BlVxIav=
+r0=>     <http://go.litmus.com/ODY0LVZQWi0xMzEAAAGF2gU4NMOODliZhb9MC0fDCD=
+TF9053T1qfAEnvZRw6iDc022AOYjJg1ut1B_qxcAJkQUz5tDA=> Sep 6-9: INBOUND 2022=
+ <http://go.litmus.com/ODY0LVZQWi0xMzEAAAGF2gU4NQ6ZAi1YmV1SZBBxNGSUIwu0NtME=
+FqXVDPUkpeC6uXKS2cL45rXi4vuuQDFjpC2Gj68=>     <http://go.litmus.com/ODY0L=
+VZQWi0xMzEAAAGF2gU4NLjE9WNcdsHqEob0d2EWGcd03FYN6hmU8RBIUIEECndV5i9HAicikTrm=
+wpgjfTyNOeU=> Oct 13-14: MarketingProfs B2B Forum <http://go.litmus.com/O=
+DY0LVZQWi0xMzEAAAGF2gU4NlNclenLxIca2ezu2CfCwS1UfFPGSahjtbqXKqseDH_eQkJk8Qv0=
+XFTgipAt0UZ1Kn4=>     <http://go.litmus.com/ODY0LVZQWi0xMzEAAAGF2gU4Nsqjs=
+R3C8-QCnKWAFoTyBd35KR2En3XgUhy7Az79dF-NNxvu6CkYV1FTtb7Cz6CUKeE=> Oct 17-2=
+0: Oracle CloudWorld <http://go.litmus.com/ODY0LVZQWi0xMzEAAAGF2gU4NOVRWdAE=
+kqf9lqlD-kYhxzrSPgjVUEZqosTvPGYyxGCg7GaGAm66iOlvSg6GRGRKM=>     <http:/=
+/go.litmus.com/ODY0LVZQWi0xMzEAAAGF2gU4NcnMic15QAEx2pLcs3y0ejBWuyE5HBnrHxTl=
+0HCIVgB1xcU0gSdw3au6iUTAxUt7DTg=> Nov 2-3: Digital Travel Summit <http://=
+go.litmus.com/ODY0LVZQWi0xMzEAAAGF2gU4NqQwaQzsllhbO6DcBTS8bgGIXh-hFc2xioXqI=
+Shj-p1mrWqh6ohnHZ_I2EL1oSoMtw4=>   See all upcoming events <http://go.lit=
+mus.com/ODY0LVZQWi0xMzEAAAGF2gU4NDYQpOtL-_B0tWeo7HFxDNOW1nNiux45I6gbHx4NWN9=
+bHQKEVzk4XzJjPhODXnFVlwI=>         <http://go.litmus.com/ODY0LVZQWi0xMzEA=
+AAGF2gU4NWcnuaIhqyI84iMcPGBUCpCrWouk4xiIJTTZUuHnCqSm19AbcpUACEk0pzy_p9Uf3U8=
+=> Embark on your next email adventure <http://go.litmus.com/ODY0LVZQWi0x=
+MzEAAAGF2gU4No3CVRad8KuCvTJho11iXAwOVKETCW_5qsLxPTBjrvSt8qxFabQ6gN2VZqPumY6=
+tvcc=> Join us IRL or virtually for a webinar (or two)   <http://go.litmu=
+s.com/ODY0LVZQWi0xMzEAAAGF2gU4NLXAYlLW4q81j53HEEgu1z57l-72hKEifkAjXKq6mJGeJ=
+1GacVba7OS1EJGGWI_XTXU=> Aug 18: Litmus Talks: Email Testing: Your Key In=
+gredient to Winning Campaigns <http://go.litmus.com/ODY0LVZQWi0xMzEAAAGF2gU=
+4NTkF0vwcSexV95hSKHKcRfKKReO3hqcqR8cItUyKfgYKNOZDFFxIYLTM8bLga4lztR8=>   =
+  <http://go.litmus.com/ODY0LVZQWi0xMzEAAAGF2gU4NezR0-SC3P33wBM18k-tC-IftQ-=
+eyeoPANG8uU7H9-H1HAZiBXlJlWTvE7CotnHLQo8=> Aug 30: Litmus Certified begin=
+s <http://go.litmus.com/ODY0LVZQWi0xMzEAAAGF2gU4NnGihGWrxHmjLCRCQZAAXsqS9j2=
+Qnwx8rrw84hEWKgUzVwYpMyGH-oIJc1L0_IkfFAE=>     <http://go.litmus.com/ODY0=
+LVZQWi0xMzEAAAGF2gU4NdcQ1VOsaRl7WiXOUM_QuokRY2WkIbP2R3_ptO1lmPSR8aTjXABPIYG=
+blW7rKVOxr3s=>  Oct 25-26: Litmus Live <http://go.litmus.com/ODY0LVZQWi0x=
+MzEAAAGF2gU4NIfuOvJkUpryai_aK6jkjMwYXUedpq5XZ1AVIaTE6DdB5OohCZ8khvTJ90lr7NA=
+-Bb8=>   See all upcoming events <http://go.litmus.com/ODY0LVZQWi0xMzEAAA=
+GF2gU4NDYQpOtL-_B0tWeo7HFxDNOW1nNiux45I6gbHx4NWN9bHQKEVzk4XzJjPhODXnFVlwI=
+=>
+How did you like this month=E2=80=99s=C2=A0newsletter?
+<http://go.litmus.com/ODY0LVZQWi0xMzEAAAGF2gU4Nl7eDsGsOljrVhMOcwBZI7nDm-9DC=
+daJrjOdxnVGGqXInkAJjqhfeQOzy0EtEQcqyus=>
+=C2=A0
+ <http://go.litmus.com/ODY0LVZQWi0xMzEAAAGF2gU4NeS5l7q-Q8vsl7j83fKlQLBQnw6h=
+O6DQSGApZdKvvNjl-JIa1lLrb8YjypREFxvaKKA=>
+=C2=A0
+ <http://go.litmus.com/ODY0LVZQWi0xMzEAAAGF2gU4NZWkbubmKbXJ_SOtQERBxzevXE9q=
+xT4kvXHz4TSKZu_efPceQKq-3y-mL5ss6clbjk4=>
+Created with Litmus Personalize, powered by Kickdynamic <http://go.litmus.c=
+om/ODY0LVZQWi0xMzEAAAGF2gU4No289A1eXLf0QDQHnPrgQH482-ypzjz3zs-a-Uzlk15TUYnX=
+IGwdDTbwc6pwKHswSjE=>
+You=E2=80=99re receiving this email because you have a Litmus account. If y=
+ou=E2=80=99d prefer not to receive emails, you can update your preferences =
+<http://go.litmus.com/dc/gwtKHhpoYqsSoaJk8p6nPUI61qAOO4p2ANEbLmeUjTwo5nWweu=
+JF5qs1gyBP3qoY/ODY0LVZQWi0xMzEAAAGF2gU4NhcxLS0nzezVK-zGusj3B71vHH1JUOwA-u=
+e5d0zt3ut6Yf9MLGPiseZWbhZIAzdBI=>.
+
+
+   <http://go.litmus.com/ODY0LVZQWi0xMzEAAAGF2gU4Ngs5Y_RXz7kAG7UW1ZfgzJb8Hm=
+t1KbBOAsirnkI55BwhbVrw9_KYnRQOVKopDdPWBUg=>
+
+
+675 Massachusetts Ave. Cambridge, MA 02139, USA
+ Unsubscribe <[[https://page.litmus.com/UnsubscribePage.html?mkt_unsubscrib=
+e=1&mkt_tok=ODY0LVZQWi0xMzEAAAGF2gU4NzNe1gOKNQjU5KtUuOg6cpWE_VbSGqpCWKd=
+y8Zn8gvKR_WIOZbEqkK_tIXGTniskAzdjJGWN4EBDZPlYebm6MJl2EfT0u5J9jJCSyw]]> =C2=
+=A0|=C2=A0  View=C2=A0online <[[https://page.litmus.com/index.php/email/ema=
+ilWebview?mkt_tok=ODY0LVZQWi0xMzEAAAGF2gU4NzNe1gOKNQjU5KtUuOg6cpWE_VbSGqp=
+CWKdy8Zn8gvKR_WIOZbEqkK_tIXGTniskAzdjJGWN4EBDZPlYebm6MJl2EfT0u5J9jJCSyw&md_=
+id=6918]]> =C2=A0|=C2=A0  Privacy Policy <http://go.litmus.com/ODY0LVZQWi=
+0xMzEAAAGF2gU4NQxIq1JbUlhzUMY3SgNv1gaJg-BWUJm7V7Ykz47xKIB9Tm-PuKdeBlkbKfVV5=
+bN5sqk=>
+=C2=A9 2022 Litmus Software, Inc. All rights=C2=A0reserved.
+
+------=_Part_78772569_1594268415.1658848053317
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+<!doctype html>
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml" xm=
+lns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-co=
+m:office:office">
+<head>
+<!--yahoo fix-->
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1"=
+>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<meta name="format-detection" content="telephone=no, date=no, addre=
+ss=no, email=no">
+<meta name="x-apple-disable-message-reformatting">
+<meta name="color-scheme" content="light dark">
+<meta name="supported-color-schemes" content="light dark only">
+<title>Email from Litmus</title>
+<style type="text/css">
+    :root {
+      color-scheme: light dark;
+      supported-color-schemes: light dark;
+    }
+  </style>
+<style>
+    h1, h2, h3, h4, h5, p, a, span, img, ul, ol, li, img {
+      font-family: 'proxima_nova', Helvetica, Arial, sans-serif !important;
+    }
+  </style>
+<style type="text/css">
+    body {
+      height: 100% !important;
+      margin: 0 auto !important;
+      padding: 0 !important;
+      width: 100% !important;
+      -webkit-text-size-adjust: 100%;
+      -ms-text-size-adjust: 100%;
+        word-spacing: normal;
+    }
+
+    div[style*="margin:16px 0"] {
+      margin: 0 !important;
+    }
+
+    table,
+    td {
+      border-collapse: collapse !important;
+      mso-table-lspace: 0pt;
+      mso-table-rspace: 0pt;
+      -webkit-text-size-adjust: 100%;
+      -ms-text-size-adjust: 100%;
+    }
+
+    img {
+      border: 0;
+      line-height: 100%;
+      outline: none;
+      text-decoration: none;
+      display: block;
+    }
+
+    p, h1, h2, h3, h4 { padding: 0; margin: 0;}
+    p, h1, h2, h3, img, ul li span { color:#262524; }
+    p, h1, h2, h3, a, ul, img, ul li span{ font-family:Helvetica, Arial, sa=
+ns-serif; }
+   
+    ul li { font-size: 28px !important; line-height: 28px !important; }
+    ol li { font-size: 18px !important; }
+   
+    h1 { font-size:36px; line-height:46px; }
+    h1.jumbo { font-size:60px; line-height:70px; }
+    h2 { font-size:30px; line-height:40px; }
+    h3 { font-size:24px; line-height:34px; }
+    h4 { font-size: 18px; line-height: 24px; }
+    p, img { font-size:18px; line-height:28px; }
+    p.subhead { font-size:30px; line-height:40px; }
+    p.sm_subhead { font-size:24px; line-height:34px; }
+    ul li span { font-size:18px; line-height:28px; }
+
+    a[x-apple-data-detectors] {
+      color: inherit !important;
+      text-decoration: none !important;
+      font-size: inherit !important;
+      font-family: inherit !important;
+      font-weight: inherit !important;
+      line-height: inherit !important;
+    }
+
+    u+#body a {
+      color: inherit;
+      text-decoration: none;
+      font-size: inherit;
+      font-family: inherit;
+      font-weight: inherit;
+      line-height: inherit;
+    }
+
+    #MessageViewBody a {
+      color: inherit;
+      text-decoration: none;
+      font-size: inherit;
+      font-family: inherit;
+      font-weight: inherit;
+      line-height: inherit;
+    }
+
+    @font-face {
+      font-family: 'proxima_nova';
+      src: url('https://litmus.com/fonts/Emails/proximanova-regular-webfont=.eot');
+      src: url('https://litmus.com/fonts/Emails/proximanova-regular-webfont=.eot?#iefix') format('embedded-opentype'),
+        url('https://litmus.com/fonts/Emails/proximanova-regular-webfont.woff') format('woff'),
+        url('https://litmus.com/fonts/Emails/proximanova-regular-webfont.ttf') format('truetype'),
+        url('https://litmus.com/fonts/Emails/proximanova-regular-webfont.svg#proxima_nova_rgregular') format('svg');
+      font-weight: normal;
+      font-style: normal;
+      mso-font-alt: 'Arial';
+    }
+
+    @font-face {
+      font-family: 'proxima_nova';
+      src: url('https://litmus.com/fonts/Emails/proximanova-bold-webfont.eot');
+      src: url('https://litmus.com/fonts/Emails/proximanova-bold-webfont.eot?#iefix') format('embedded-opentype'),
+        url('https://litmus.com/fonts/Emails/proximanova-bold-webfont.woff') format('woff'),
+        url('https://litmus.com/fonts/Emails/proximanova-bold-webfont.ttf')
+ format('truetype'),
+        url('https://litmus.com/fonts/Emails/proximanova-bold-webfont.svg#proxima_nova_rgbold') format('svg');
+      font-weight: bold;
+      font-style: normal;
+      mso-font-alt: 'Arial';
+    }
+   
+    h1 a, h2 a, h3 a, h4 a { color: #262524 !important; text-decoration: no=
+ne !important; }
+   
+    .header a { color: #262524 !important; text-decoration: underline !impo=
+rtant; }
+    .header-dark a { color: #fefefe !important; text-decoration: underline =
+!important; }
+   
+    a, .link { color: #10618B !important; text-decoration: underline !impor=
+tant; }
+   
+    .dark a { color: #ffffff !important; }
+   
+    a:hover, .link:hover {
+      text-decoration: none !important;
+    }
+
+    .fadeimg {
+      transition: 0.3s !important;
+      opacity: 1 !important;
+    }
+
+    .fadeimg:hover {
+      transition: 0.3s !important;
+      opacity: 0.5 !important;
+    }
+   
+    .footer p { font-size: 14px; line-height: 24px; color:#4B525D; }
+    .footer a { color: #4B525D !important; }
+    .footer-dark p { font-size: 14px; line-height: 24px; color:#fefefe; }=
+
+    .footer-dark a { color: #fefefe !important; }
+   
+    .cta, .cta span.text { color: #ffffff !important; text-decoration: none=
+ !important; font-size: 18px !important; font-weight: bold !important; }
+    .cta { transition: 0.5s !important; box-shadow:0 3px 6px rgba(0,0,0,.2); padding: 14px 20px; border-radius: 5px; display: inline-block; mso-paddin=
+g-alt: 0; font-weight: bold; }
+    .cta.btn-yellow span { color: #262524 !important; }
+    .cta span.text { transition: 0.5s !important; }
+    .cta:hover { transition: 0.5s !important; box-shadow: none !important; =
+}
+    .cta:hover, .cta:hover span.text { transition: 0.5s !important; color: =
+#262524 !important; }
+   
+    .cta-border { text-decoration: none !important; font-size: 18px !import=
+ant; line-height: 22px !important; padding-bottom: 6px; border-bottom: 2px =
+solid #0F618A; display: inline-block; }
+    .cta-border:hover { border-bottom: 2px solid transparent !important; }
+   
+    .cta-outlook { text-decoration: none !important; }
+   
+    .btn-red { background-color: #C54D3F !important; }
+    .btn-red:hover { background-color: #F78F7D !important;background-image:=
+none !important; }
+    .btn-blue:hover { background-color: #B5CFE3 !important;background-image=
+:none !important; }
+    .btn-green:hover { background-color: #8BD09C !important;background-imag=
+e:none !important; }
+    .btn-purple:hover { background-color: #CCB6D4 !important;background-ima=
+ge:none !important; }
+    .btn-teal:hover { background-color: #6EAFA7 !important;background-image=
+:none !important; }
+    .btn-orange:hover { background-color: #EBAB66 !important; }
+    .btn-yellow:hover { background-color: #FBECBC !important; }
+    .btn-tangerine:hover { background-color: #FACE8F !important; }
+
+    .mobile {
+      display: none !important;
+    }
+     .mob-inline {
+      display: none !important;
+    }
+   
+        .dark-img { display: none !important; }
+   
+    .blueLinks a {
+            color:inherit !important;
+            text-decoration: none !important;
+    }   
+  </style>
+<style>
+    u + .body .gmail-screen { background:#000; mix-blend-mode:screen; displ=
+ay: block; }
+    u + .body .gmail-difference { background:#000; mix-blend-mode:differenc=
+e; display: block; }
+    u + .body .cta:hover .gmail-screen { background: transparent; mix-blend=
+-mode:normal; }
+    u + .body .cta:hover .gmail-difference { background: transparent; mix-b=
+lend-mode:normal; }
+</style>
+<style>
+    @media screen and (max-width:600px) {
+        .wMobile { width: 95% !important; }
+        .wInner {  width: 85% !important; }
+        .wFull { width: 100% !important; }
+       
+        .desktop { width: 0 !important; display: none !important; }
+        .mobile { display: block !important; }
+        .mob-inline { display: inline-block !important; }
+       
+        h1 { font-size: 36px !important; line-height: 46px !important; }
+        .subhead { font-size: 24px !important; line-height: 34px !important; }
+       
+        .tPad-0 { padding-top: 0 !important; }
+        .rPad-0 { padding-right: 0 !important; }
+        .bPad-0 { padding-bottom: 0 !important; }
+        .lPad-0 { padding-left: 0 !important; }
+       
+        .tPad-20 { padding-top: 20px !important; }
+        .rPad-20 { padding-right: 20px !important; }
+        .bPad-20 { padding-bottom: 20px !important; }
+        .lPad-20 { padding-left: 20px !important; }
+       
+        .tPad-20 { padding-top: 20px !important; }
+        .tPad-30 { padding-top: 30px !important; }
+        .tMar-30 { margin-top: 30px !important; }
+        .hAuto { height: auto !important; }
+       
+        .cTxt { text-align: center !important; }
+        .lTxt { text-align: left !important; }
+    }
+  </style>
+<style>
+         input {
+        display: none;
+      }
+
+      .tab {
+        display: inline-block;
+        width: auto;
+        background-color: #97943A;
+        color: #ffffff;
+        padding: 20px 30px;
+        font-weight: bold;
+        font-size: 18px;
+        line-height: 28px;
+        font-family: 'proxima_nova', Helvetica, Arial, sans-serif !important;
+        text-align: center;
+        vertical-align: bottom;
+        z-index: 999;
+      }
+   
+    .lil-banner { background-color: #F5F4E0; max-width: 540px; width: 90%; 
+text-align: left; margin-top: 20px; }
+    .lil-banner img, .lil-banner p { display: inline-block; vertical-align:middle; }
+    .lil-banner p { max-width: 332px; }
+
+      .title1 {
+        border-radius: 5px 0 0 0;
+      }
+
+      .title3 {
+        border-radius: 0 5px 0 0;
+      }
+
+      .tab:hover {
+        background-color: #7D7A2C;
+        color: #ffffff;
+      }
+
+      #tab1:checked+span .title1,
+      #tab2:checked+span .title2 {
+        background-color: #CECB69;
+        color: #262524;
+      }
+
+      #tab1:checked+span .content1,
+      #tab2:checked+span .content2 {
+        display: block !important;
+        max-height: none !important;
+        height: auto !important;
+        z-index: 0;
+        position: relative;
+      }
+
+        @media screen and ( max-width: 600px ) {
+            .interactive { display: none; }
+        }
+}
+    </style>
+<style>
+        @media screen and (max-width: 600px) {
+            .tPad-15 { padding-top: 15px !important; }
+            .tPad-10 { padding-top: 10px !important; }
+            .lPad-10 { padding-left: 10px !important; }
+            .rPad-10 { padding-right: 10px !important; }
+            .rPad-0 { padding-right: 0 !important; }
+            .lh-6 {line-height: 6px !important; font-size: 6px !important; =
+}
+            .lil-banner img { margin: 0 auto 15px; }
+            .lil-banner { padding: 20px 0; text-align: center; }
+            .block { display: block; }
+            .bgImg { background-image: url("https://campaigns.litmus.com/_e=
+mail/2022/July/2022-07-Newsletter/ECMS-mobile.png") !important; width: 100%=
+ !important; height: 360px !important; }
+        }
+    </style>
+<style>
+    @media (prefers-color-scheme: dark) {
+
+      .dark-img {
+        display: block !important;
+      }
+
+      .light-img {
+        display: none;
+        display: none !important;
+      }
+
+      .darkmode {
+        background-color: #262524 !important; background: #262524 !importan=
+t;
+      }
+      .darkmode2, .callout {
+        background-color: #0e0e0e !important; background: #0e0e0e !importan=
+t;
+      }
+       
+        .dark-border { border-color: #2B3337 !important; }
+
+      h1, h2, h3, p, span, .plainTxt li, h1 a, h2 a, h3 a, .header a , img =
+{
+        color: #EDEEEF !important;
+      }
+       
+      .eyebrow { color: #B6BBBE !important; }
+       
+      a, .link { color: #7EABCE !important; }
+      .footer .link, .footer a { color: #fdfdfd !important; }
+     
+      .cta-border { color: #7EABCE !important; border-bottom: 3px solid #7E=
+ABCE !important; }
+      .cta-border span { color: #7EABCE !important; }
+      .btn-orange span, .btn-yellow span, .btn-tangerine span { color: init=
+ial !important; }
+      .btn-blue span { color: #EDEEEF !important; }
+       
+        .darkTxt { color: #262524 !important; }
+    }
+
+    [data-ogsc] .dark-img {
+      display: block !important;
+    }
+
+    [data-ogsc] .light-img {
+      display: none;
+      display: none !important;
+    }
+
+    [data-ogsb] .darkmode {
+      background-color: #272623 !important;
+    }
+    [data-ogsb] .darkmode2, [data-ogsb] .callout {
+      background-color: #0e0e0e !important;
+    }
+     
+      [data-ogsc] .dark-border { border-color: #2B3337 !important; }
+
+    [data-ogsc] h1, [data-ogsc] h2, [data-ogsc] h3, [data-ogsc] p, [data-og=
+sc] span, [data-ogsc] .plainTxt li,  [data-ogsc] h1 a, [data-ogsc] h2 a, [d=
+ata-ogsc] h3 a, [data-ogsc] .header a, [data-ogsc] .footer a, [data-ogsc] i=
+mg  {
+      color: #EDEEEF !important;
+    }     
+     
+          [data-ogsc] .link, [data-ogsc] p a { color: #7EABCE !important; }=
+
+      [data-ogsc] .footer a { color: #fdfdfd !important; }
+     
+     [data-ogsc] .eyebrow { color: #B6BBBE !important; }
+
+
+     
+    [data-ogsc] .cta-border { color: #7EABCE !important; border-bottom: 3px=
+ solid #7EABCE !important; }
+    [data-ogsc] .cta-border span { color: #7EABCE !important; }
+    [data-ogsc] .btn-orange span, [data-ogsc] .btn-yellow span { color: ini=
+tial !important; }
+       [data-ogsc] .btn-tangerine span { color: #1D2025 !important; }
+     
+  </style>
+<style>
+      .tabcheck:checked+div {
+        display: block !important;
+        max-height: none !important;
+        height: auto !important;
+      }
+
+      .tabcheck:checked+.fallback {
+        display: none !important;
+      }
+    </style>
+</head>      
+<!--target dark mode-->   
+<!-- Allow for better image rendering on Windows hi-DPI displays. -->
+<!--[if mso]>
+<noscript>
+    <xml>
+      <o:OfficeDocumentSettings>
+        <o:AllowPNG/>
+        <o:PixelsPerInch>96</o:PixelsPerInch>
+      </o:OfficeDocumentSettings>
+    </xml>
+</noscript>
+<![endif]-->
+<!--to support dark mode meta tags--> 
+<!--[if (gte mso 9)|(IE)]><!--> 
+<!--<![endif]-->  
+<!--[if (gte mso 9)|(IE)]>
+    <style>
+    .keep-black {
+        mso-style-textfill-type:gradient;
+        mso-style-textfill-fill-gradientfill-stoplist:"0 \#000000 1 100000\=
+,99000 \#000000 1 100000";
+        color: #ffffff !important;
+    }
+    a.keep-black {
+        mso-style-textfill-type:gradient;
+        mso-style-textfill-fill-gradientfill-stoplist:"0 \#000000 1 100000\=
+,99000 \#000000 1 100000";
+        color: #ffffff !important;
+    }
+    .keep-white {
+        mso-style-textfill-type:gradient;
+        mso-style-textfill-fill-gradientfill-stoplist:"0 \#FFFFFF 0 100000\=
+,100000 \#FFFFFF 0 100000";
+        color: #000000 !important;
+    }
+    a.keep-white {
+        mso-style-textfill-type:gradient;
+        mso-style-textfill-fill-gradientfill-stoplist:"0 \#ffffff 1 100000\=
+,100000 \#ffffff 1 100000";
+        color: #000000 !important;
+    }
+    </style>
+    <![endif]-->
+<!--mobile styles-->
+<!--mobile styles-->      
+<body id="body" class="darkmode body" bgcolor="#ffffff" style="back=
+ground-color:#ffffff;">
+<div role="article" aria-roledescription="email" aria-label="Email fr=
+om Litmus" xml:lang="en" lang="en">
+<!--hidden preheader with preh-header spacer hack-->
+<div class="litmus-builder-preview-text" style="display:none;font-size:=
+0px;color:transparent;line-height:1px;max-height:0px;max-width:0px;opacity:=
+0;overflow:hidden;mso-hide:all;">
+Get the latest marketing trends, create flawless bullet points in email, do=
+wnload free templates, and more.=CD=8F=E2=80=8C&nbsp;=CD=8F=E2=80=8C&nbsp;=
+=CD=8F=E2=80=8C&nbsp;=CD=8F=E2=80=8C&nbsp;=CD=8F=E2=80=8C&nbsp;=CD=8F=E2=80=
+=8C&nbsp;=CD=8F=E2=80=8C&nbsp;=CD=8F=E2=80=8C&nbsp;=CD=8F=E2=80=8C&nbsp;=CD=
+=8F=E2=80=8C&nbsp;=CD=8F=E2=80=8C&nbsp;=CD=8F=E2=80=8C&nbsp;=CD=8F=E2=80=8C=
+&nbsp;=CD=8F=E2=80=8C&nbsp;=CD=8F=E2=80=8C&nbsp;=CD=8F=E2=80=8C&nbsp;=CD=8F=
+=E2=80=8C&nbsp;=CD=8F=E2=80=8C&nbsp;=CD=8F=E2=80=8C&nbsp;=CD=8F=E2=80=8C&nb=
+sp;=CD=8F=E2=80=8C&nbsp;=CD=8F=E2=80=8C&nbsp;=CD=8F=E2=80=8C&nbsp;=CD=8F=E2=
+=80=8C&nbsp;=CD=8F=E2=80=8C&nbsp;=CD=8F=E2=80=8C&nbsp;=CD=8F=E2=80=8C&nbsp;=
+=CD=8F=E2=80=8C&nbsp;=CD=8F=E2=80=8C&nbsp;=CD=8F=E2=80=8C&nbsp;=CD=8F=E2=80=
+=8C&nbsp;=CD=8F=E2=80=8C&nbsp;=CD=8F=E2=80=8C&nbsp;=CD=8F=E2=80=8C&nbsp;=CD=
+=8F=E2=80=8C&nbsp;=CD=8F=E2=80=8C&nbsp;=CD=8F=E2=80=8C&nbsp;=CD=8F=E2=80=8C=
+&nbsp;=CD=8F=E2=80=8C&nbsp;=CD=8F=E2=80=8C&nbsp;=CD=8F=E2=80=8C&nbsp;=CD=8F=
+=E2=80=8C&nbsp;=CD=8F=E2=80=8C&nbsp;=CD=8F=E2=80=8C&nbsp;=CD=8F=E2=80=8C&nb=
+sp;=CD=8F=E2=80=8C&nbsp;=CD=8F=E2=80=8C&nbsp;=CD=8F=E2=80=8C&nbsp;=CD=8F=E2=
+=80=8C&nbsp;=CD=8F=E2=80=8C&nbsp;=CD=8F=E2=80=8C&nbsp;=CD=8F=E2=80=8C&nbsp;=
+=CD=8F=E2=80=8C&nbsp;=CD=8F=E2=80=8C&nbsp;=CD=8F=E2=80=8C&nbsp;=CD=8F=E2=80=
+=8C&nbsp;=CD=8F=E2=80=8C&nbsp;=CD=8F=E2=80=8C&nbsp;=CD=8F=E2=80=8C&nbsp;=CD=
+=8F=E2=80=8C&nbsp;=CD=8F=E2=80=8C&nbsp;=CD=8F=E2=80=8C&nbsp;=CD=8F=E2=80=8C=
+&nbsp;=CD=8F=E2=80=8C&nbsp;=CD=8F=E2=80=8C&nbsp;=CD=8F=E2=80=8C&nbsp;=CD=8F=
+=E2=80=8C&nbsp;=CD=8F=E2=80=8C&nbsp;=CD=8F=E2=80=8C&nbsp;=CD=8F=E2=80=8C&nb=
+sp;=CD=8F=E2=80=8C&nbsp;=CD=8F=E2=80=8C&nbsp;=CD=8F=E2=80=8C&nbsp;=CD=8F=E2=
+=80=8C&nbsp;=CD=8F=E2=80=8C&nbsp;=CD=8F=E2=80=8C&nbsp;=CD=8F=E2=80=8C&nbsp;=
+=CD=8F=E2=80=8C&nbsp;=CD=8F=E2=80=8C&nbsp;=CD=8F=E2=80=8C&nbsp;=CD=8F=E2=80=
+=8C&nbsp;=CD=8F=E2=80=8C&nbsp;=CD=8F=E2=80=8C&nbsp;=CD=8F=E2=80=8C&nbsp;=CD=
+=8F=E2=80=8C&nbsp;=CD=8F=E2=80=8C&nbsp;=CD=8F=E2=80=8C&nbsp;=CD=8F=E2=80=8C=
+&nbsp;=CD=8F=E2=80=8C&nbsp;=CD=8F=E2=80=8C&nbsp;=CD=8F=E2=80=8C&nbsp;=CD=8F=
+=E2=80=8C&nbsp;=CD=8F=E2=80=8C&nbsp;=CD=8F=E2=80=8C&nbsp;=CD=8F=E2=80=8C&nb=
+sp;=CD=8F=E2=80=8C&nbsp;=CD=8F=E2=80=8C&nbsp;=CD=8F=E2=80=8C&nbsp;=CD=8F=E2=
+=80=8C&nbsp;=CD=8F=E2=80=8C&nbsp;=CD=8F=E2=80=8C&nbsp;=CD=8F=E2=80=8C&nbsp;=
+=CD=8F=E2=80=8C&nbsp;=CD=8F=E2=80=8C&nbsp;=CD=8F=E2=80=8C&nbsp;=CD=8F=E2=80=
+=8C&nbsp;=CD=8F=E2=80=8C&nbsp;=CD=8F=E2=80=8C&nbsp;=CD=8F=E2=80=8C&nbsp;=CD=
+=8F=E2=80=8C&nbsp;=CD=8F=E2=80=8C&nbsp;=CD=8F=E2=80=8C&nbsp;=CD=8F=E2=80=8C=
+&nbsp;=CD=8F=E2=80=8C&nbsp;=CD=8F=E2=80=8C&nbsp;=CD=8F=E2=80=8C&nbsp;=CD=8F=
+=E2=80=8C&nbsp;=CD=8F=E2=80=8C&nbsp;=CD=8F=E2=80=8C&nbsp;=CD=8F=E2=80=8C&nb=
+sp;=CD=8F=E2=80=8C&nbsp;=CD=8F=E2=80=8C&nbsp;=CD=8F=E2=80=8C&nbsp;=CD=8F=E2=
+=80=8C&nbsp;=CD=8F=E2=80=8C&nbsp;=CD=8F=E2=80=8C&nbsp;=CD=8F=E2=80=8C&nbsp;=
+=CD=8F=E2=80=8C&nbsp;=CD=8F=E2=80=8C&nbsp;=CD=8F=E2=80=8C&nbsp;=CD=8F=E2=80=
+=8C&nbsp;=CD=8F=E2=80=8C&nbsp;=CD=8F=E2=80=8C&nbsp;=CD=8F=E2=80=8C&nbsp;=CD=
+=8F=E2=80=8C&nbsp;=CD=8F=E2=80=8C&nbsp;=CD=8F=E2=80=8C&nbsp;=CD=8F=E2=80=8C=
+&nbsp;=CD=8F=E2=80=8C&nbsp;=CD=8F=E2=80=8C&nbsp;=CD=8F=E2=80=8C&nbsp;=CD=8F=
+=E2=80=8C&nbsp;=CD=8F=E2=80=8C&nbsp;=CD=8F=E2=80=8C&nbsp;=CD=8F=E2=80=8C&nb=
+sp;=CD=8F=E2=80=8C&nbsp;=CD=8F=E2=80=8C&nbsp;=CD=8F=E2=80=8C&nbsp;
+</div>
+<!--start of email-->
+<table class="darkmode" bgcolor="#E8E6BA" cellpadding="0" cellspacing=
+="0" border="0" role="presentation" style="width:100%;">
+<!--header-->
+<tbody>
+<tr>
+<td class="header-dark darkmode2" align="center" valign="top" style=
+="padding: 30px 0; background-color: #262524; ">
+<div class="mktoText" id="header">
+<table class="wMobile" border="0" cellpadding="0" cellspacing="0" r=
+ole="presentation" style="width: 600px;">
+<tbody>
+<tr>
+<td align="left" valign="middle"><a href=
+"http://go.litmus.com/ODY0LVZQWi0xMzEAAAGF2gU4NHY_9myhKz6V3nURlzrsvj72zBbgn=
+Tge87zoO9pCJBGJpDettpjKKAzZVrQAkytNCPY=" style="text-decoration: none;"
+><img src="https://campaigns.litmus.com/_email/_global/images/logo_icon-n=
+ame-white.png" width="163" height="60" alt="Litmus" style="font-wei=
+ght: bold; font-size: 36px; line-height: 40px;" border="0" /></a></td>
+<td class="header-dark" align="right" valign="middle">
+<p style="font-size: 16px; line-height: 24px;"><span class="gmail-scree=
+n"> <span class="gmail-difference"> <!--customer--> <a href=
+"http://go.litmus.com/ODY0LVZQWi0xMzEAAAGF2gU4NI_wPhZTbSHNhS0ftlTb85kWVU5IC=
+Lp0mGVnZs21g9E3Aop7EShGQWJ2tqfKyAoars0=" style="color: #fefefe;"
+>Login</a></span> </span></p>
+</td>
+</tr>
+</tbody>
+</table>
+</div> </td>
+</tr>
+<tr>
+<td align="center" valign="top" style="background-color: #7D7A2C; bac=
+kground: linear-gradient(#7D7A2C, #7D7A2C);">
+<div class="mktoText" id="flag">
+<div class="gmail-screen">
+<div class="gmail-difference">
+<!--prospects-->
+<p style="font-family:Helvetica, Arial, sans-serif; font-size:18px; line-=
+height:28px; color:#ffffff; margin:15px 20px;"><em>Your monthly roundup of =
+the latest email marketing, design, and <br class="desktop">development s=
+trategies from Litmus.</em></p>
+</div>
+</div>
+</div> </td>
+</tr>
+<!--main content area-->
+<tr>
+<td align="center" valign="top">
+<table class="wInner" cellpadding="0" cellspacing="0" border="0" ro=
+le="presentation" style="width:600px;">
+<!-- Start Main Article -->
+<tbody>
+<tr>
+<td align="center" valign="top" style="padding: 60px 0 0;">
+<div class="mktoText" id="image-art1">
+<!--Image -->
+<a href=
+"http://go.litmus.com/ODY0LVZQWi0xMzEAAAGF2gU4NH_hM0flKRLbPDVJk5aVjRSZI6a1s=
+W29-PyPvK3N3T_UO_WyOfkspnrjr5hdd9JDOhA=" style="text-decoration: none;"
+><img class="fadeimg" src="https://campaigns.litmus.com/_email/2022/Jul=
+y/2022-07-Newsletter/202220_hero.png" width="600" height="300" alt="L=
+itmus van on a road going camping" style="width: 100%; max-width: 600px; =
+height: auto;"></a>
+</div> </td>
+</tr>
+<tr>
+<td align="center" valign="top" style="padding: 30px 0 0;">
+<div class="mktoText" id="h1-art1">
+<!--h1-->
+<h1><a href=
+"http://go.litmus.com/ODY0LVZQWi0xMzEAAAGF2gU4NikCVr2ATTcp1m4jXbyRdoU78TlnX=
+p76pNEzIvojISicD3hlERdf-K72tYCMj_2mYaM="
+>Journey onwards: 7 email personalization quick wins</a></h1>
+</div> </td>
+</tr>
+<tr>
+<td align="left" valign="top" style="padding: 30px 0 0;">
+<div class="mktoText" id="body_copy-art1">
+<!--Paragraph block-->
+<p style="text-align: left;">Get a front-seat look at simple but powerful=
+ email personalization tactics that drive big results.</p>
+</div> </td>
+</tr>
+<tr>
+<td align="center" valign="top" style="padding: 30px 0 0;">
+<div class="mktoText" id="cta-art1">
+<!--cta-->
+<a href=
+"http://go.litmus.com/ODY0LVZQWi0xMzEAAAGF2gU4NdR7YUXmc0S2MmWAt2RO6dNr7pP30=
+GCQPUAi3e9AvCqVZE7XaikE96z7U67av1YZ1fY=" class="cta btn-blue" style="=
+background-color: #0F618A;background-image:linear-gradient(#0F618A,#0F618A);"
+>
+<!--[if mso]><i style="letter-spacing: 25px;mso-font-width:-100%;mso-text=
+-raise:30pt">&nbsp;</i><![endif]--><span style="mso-text-raise:15pt;"><sp=
+an class="gmail-screen"><span class="gmail-difference">Let=E2=80=99s ri=
+de</span></span></span>
+<!--[if mso]><i style="letter-spacing: 25px;mso-font-width:-100%">&nbsp;<=
+/i><![endif]--></a>
+</div> </td>
+</tr>
+<!--end Main Article-->
+<!-- Start Secondary Article-->
+<tr>
+<td aria-hidden="true" align="left" valign="top" style="font-size:5=
+0px;line-height:50px;mso-line-height-rule: exactly;">&nbsp;</td>
+</tr>
+<tr>
+<td class="darkmode2" align="center" valign="top" style="padding:20=
+px 0; background-color: #ffffff;">
+<div class="mktoText" id="art2">
+<table class="wInner" border="0" cellpadding="0" cellspacing="0" ro=
+le="presentation" style="width: 560px;">
+<tbody>
+<tr>
+<td align="center" valign="top">
+<!--Image --> <a href=
+"http://go.litmus.com/ODY0LVZQWi0xMzEAAAGF2gU4NenSq8obE0ziXvUPqCAZ9CrTF2mSL=
+VdUm5aQiEzMbXHOF3O00m1KWgaZq-YZdZD8i8E=" style="text-decoration: none;"
+><img class="fadeimg" src="https://campaigns.litmus.com/_email/2022/Jul=
+y/2022-07-Newsletter/20220715_mod1_desktop.png" width="560" height="249=
+" alt="An ebook hiding among the bushes" style="width: 100%; max-width:=
+ 560px; height: auto;"></a> </td>
+</tr>
+<tr>
+<td align="center" valign="top" style="padding: 20px 0 0;">
+<!--h2--> <h2><a href=
+"http://go.litmus.com/ODY0LVZQWi0xMzEAAAGF2gU4NDYLxb5uPPYTyIHKDmEPSxVEPN40Z=
+WgnhdSaGctGUJCPhj2S-eH9QeRICIXTtQsEBsQ="
+>Get the latest marketing trends, benchmarks, and insights</a></h2> </td>=
+
+</tr>
+<tr>
+<td align="left" valign="top" style="padding: 20px 0 0;">
+<!--Paragraph block--> <p style="text-align: left;">Let us (along with ou=
+r friends at HubSpot) be your guide through the wild world of marketing. Le=
+arn how to effectively reach your audience through social media and video m=
+arketing=E2=80=94as well as email.</p> </td>
+</tr>
+<tr>
+<td align="center" valign="top" style="padding: 20px 0 0;">
+<!--cta--> <a href="hhttps://www.hubspot.com/state-of-marketing?utm_sourc=
+e=hscm-Litmus-SOM-2022-eml?utm_content=cta&amp;utm_campaign=newslette=
+r&amp;utm_source=marketing&amp;utm_medium=email" class="cta btn-blue"=
+ style="background-color: #0F618A;background-image:linear-gradient(#0F618=
+A,#0F618A);">
+<!--[if mso]><i style="letter-spacing: 25px;mso-font-width:-100%;mso-text=
+-raise:30pt">&nbsp;</i><![endif]--><span style="mso-text-raise:15pt;"><sp=
+an class="gmail-screen"><span class="gmail-difference">Explore the repo=
+rt</span></span></span>
+<!--[if mso]><i style="letter-spacing: 25px;mso-font-width:-100%">&nbsp;<=
+/i><![endif]--></a> </td>
+</tr>
+</tbody>
+</table>
+</div> </td>
+</tr>
+<!--end Secondary Article-->
+<!-- Start Secondary Article-->
+<tr>
+<td aria-hidden="true" align="left" valign="top" style="font-size:2=
+0px;line-height:20px;mso-line-height-rule: exactly;">&nbsp;</td>
+</tr>
+<tr>
+<td class="darkmode2" align="center" valign="top" style="padding:20=
+px 0; background-color: #ffffff;">
+<div class="mktoText" id="art3">
+<table class="wInner" border="0" cellpadding="0" cellspacing="0" ro=
+le="presentation" style="width: 560px;">
+<tbody>
+<tr>
+<td align="center" valign="top"><!--Image --> <a href=
+"http://go.litmus.com/ODY0LVZQWi0xMzEAAAGF2gU4NZFQ2MOWuug-SeY05fweQPSDWjlDR=
+en7aqiSWwOXEOBCgmuYkOp90dm9_VvvwqE1Bj4=" style="text-decoration: none;"
+><img class="fadeimg" src="https://campaigns.litmus.com/_email/2022/Jul=
+y/2022-07-Newsletter/20220715_mod2.2_desktop.png" width="560" height="2=
+49" alt="bullet points with things to take camping" style="width: 100%;=
+ max-width: 560px; height: auto;" /></a></td>
+</tr>
+<tr>
+<td align="center" valign="top" style="padding: 20px 0 0;"><!--h2-->
+<h2><a href=
+"http://go.litmus.com/ODY0LVZQWi0xMzEAAAGF2gU4NvT2m3fNEiHwpm_CajKhn2UvOXYxV=
+XGSM344tMd1mslbkiNMpYXaBtPUklMM6tjy_nI="
+>Your ultimate guide to bullet points in&nbsp;email</a></h2>
+</td>
+</tr>
+<tr>
+<td align="left" valign="top" style="padding: 20px 0 0;"><!--Paragrap=
+h block-->
+<p style="text-align: left;">Bullet points help guide subscribers as they=
+ read and scroll through your emails. Help them stay on the email trail wit=
+h tips, how-tos, and more.</p>
+</td>
+</tr>
+<tr>
+<td align="center" valign="top" style="padding: 20px 0 0;"><!--cta-->=
+ <a href=
+"http://go.litmus.com/ODY0LVZQWi0xMzEAAAGF2gU4NNsNxy5v338TLtkdoYHlgcC9btpB8=
+bwr_DqcrEaKs5_iRT0FPPV36clZrtoTkTZipUY=" class="cta btn-blue" style="=
+background-color: #0f618a; background-image: linear-gradient(#0F618A,#0F618=
+A);"
+> <!--[if mso]><i style="letter-spacing: 25px;mso-font-width:-100%;mso-te=
+xt-raise:30pt">&nbsp;</i><![endif]--><span style="mso-text-raise: 15pt;">=
+<span class="gmail-screen"><span class="gmail-difference">Brush up your=
+ bullet points</span></span></span> <!--[if mso]><i style="letter-spacing=
+: 25px;mso-font-width:-100%">&nbsp;</i><![endif]--></a></td>
+</tr>
+</tbody>
+</table>
+</div> </td>
+</tr>
+<!--end Secondary Article-->
+<!-- Start Secondary Article-->
+<tr>
+<td aria-hidden="true" align="left" valign="top" style="font-size:2=
+0px;line-height:20px;mso-line-height-rule: exactly;">&nbsp;</td>
+</tr>
+<tr>
+<td class="darkmode2" align="center" valign="top" style="padding:20=
+px 0; background-color: #ffffff;">
+<div class="mktoText" id="art4">
+<table class="wInner" border="0" cellpadding="0" cellspacing="0" ro=
+le="presentation" style="width: 560px;">
+<tbody>
+<tr>
+<td align="center" valign="top">
+<!--Image --> <a href=
+"http://go.litmus.com/ODY0LVZQWi0xMzEAAAGF2gU4NgDuPG1jZOnkHoOigOKmn8ML_eyWg=
+lQD3ErqfChSK4s4ziXJuVQ293PILSaTbynwEkc=" style="text-decoration: none;"
+><img class="fadeimg" src="https://campaigns.litmus.com/_email/2022/Jul=
+y/2022-07-Newsletter/20220715_mod3_desktop.png" width="560" height="250=
+" alt="A compass pointing to email" style="width: 100%; max-width: 560p=
+x; height: auto;"></a> </td>
+</tr>
+<tr>
+<td align="center" valign="top" style="padding: 20px 0 0;">
+<!--h2--> <h2><a href=
+"http://go.litmus.com/ODY0LVZQWi0xMzEAAAGF2gU4Ne1O-uMN7FJwBjhVlzwYgGN9K1Gt7=
+cSVYivesIUquBHh7z_HkDYuUB5UiHP22Z9wmq0="
+>Navigating the personalization wilderness</a></h2> </td>
+</tr>
+<tr>
+<td align="left" valign="top" style="padding: 20px 0 0;">
+<!--Paragraph block--> <p style="text-align: left;">Effective personaliza=
+tion needs to have a sound strategy in place=E2=80=94otherwise, it's just b=
+ells and whistles.</p> </td>
+</tr>
+<tr>
+<td align="center" valign="top" style="padding: 20px 0 0;">
+<!--cta--> <a href=
+"http://go.litmus.com/ODY0LVZQWi0xMzEAAAGF2gU4NfNvQsr_dGSKgBOIRHpqJ1fWJ9U5E=
+u0dz-xOV6zIfCJcJFGk1X6jWZy0kbwoR_d59Y0=" class="cta btn-blue" style="=
+background-color: #0F618A;background-image:linear-gradient(#0F618A,#0F618A);"
+>
+<!--[if mso]><i style="letter-spacing: 25px;mso-font-width:-100%;mso-text=
+-raise:30pt">&nbsp;</i><![endif]--><span style="mso-text-raise:15pt;"><sp=
+an class="gmail-screen"><span class="gmail-difference">Go beyond the fi=
+rst name</span></span></span>
+<!--[if mso]><i style="letter-spacing: 25px;mso-font-width:-100%">&nbsp;<=
+/i><![endif]--></a> </td>
+</tr>
+</tbody>
+</table>
+</div> </td>
+</tr>
+<!--end Secondary Article-->
+<!-- Start Secondary Article-->
+<tr>
+<td aria-hidden="true" align="left" valign="top" style="font-size:2=
+0px;line-height:20px;mso-line-height-rule: exactly;">&nbsp;</td>
+</tr>
+<tr>
+<td class="darkmode2" align="center" valign="top" style="padding:20=
+px 0; background-color: #ffffff;">
+<div class="mktoText" id="art5">
+<table class="wInner" border="0" cellpadding="0" cellspacing="0" ro=
+le="presentation" style="width: 560px;">
+<tbody>
+<tr>
+<td align="center" valign="top">
+<!--Image --> <a href=
+"http://go.litmus.com/ODY0LVZQWi0xMzEAAAGF2gU4NCOlr6mR4bqWYtH5iN4tsmP2JmhSi=
+7nAoVQAK15pg1Mh026mb4SckwFV8KKFUc7Vri0=" style="text-decoration: none;"
+><img class="fadeimg" src="https://campaigns.litmus.com/_email/2022/Jul=
+y/2022-07-Newsletter/20220715_mod4_desktop.png" width="560" height="249=
+" alt="email templates being put in a backpack" style="width: 100%; max=
+-width: 560px; height: auto;"></a> </td>
+</tr>
+<tr>
+<td align="center" valign="top" style="padding: 20px 0 0;">
+<!--h2--> <h2><a href=
+"http://go.litmus.com/ODY0LVZQWi0xMzEAAAGF2gU4NT7Y81It_ozTIVOC_ufNM1Ye_qVsY=
+8LK512EjLw0VGnWU0bK3HwNbp91iwR0ZxziBtk="
+>Lighten your load</a></h2> </td>
+</tr>
+<tr>
+<td align="left" valign="top" style="padding: 20px 0 0;">
+<!--Paragraph block--> <p style="text-align: left;">=E2=80=A6 with these =
+6 free email templates. Plus, make the most out of them with tips from Litm=
+us=E2=80=99 own email team.</p> </td>
+</tr>
+<tr>
+<td align="center" valign="top" style="padding: 20px 0 0;">
+<!--cta--> <a href=
+"http://go.litmus.com/ODY0LVZQWi0xMzEAAAGF2gU4NJh8QACqv3JnHgFQ7_1n6MqgrNyh2=
+GIiD6XHr6V8P71TuEAC51a4ViOvUX9l1gKtBzM=" class="cta btn-blue" style="=
+background-color: #0F618A;background-image:linear-gradient(#0F618A,#0F618A);"
+>
+<!--[if mso]><i style="letter-spacing: 25px;mso-font-width:-100%;mso-text=
+-raise:30pt">&nbsp;</i><![endif]--><span style="mso-text-raise:15pt;"><sp=
+an class="gmail-screen"><span class="gmail-difference">Grab your templa=
+tes</span></span></span>
+<!--[if mso]><i style="letter-spacing: 25px;mso-font-width:-100%">&nbsp;<=
+/i><![endif]--></a> </td>
+</tr>
+</tbody>
+</table>
+</div> </td>
+</tr>
+<!--end Secondary Article-->
+<!--Event Block-->
+<!-- Start Secondary Article-->
+<tr>
+<td aria-hidden="true" align="left" valign="top" style="font-size:2=
+0px;line-height:20px;mso-line-height-rule: exactly;">&nbsp;</td>
+</tr>
+<tr>
+<td class="darkmode2" align="center" valign="top" style="padding:20=
+px 0; background-color: #ffffff;">
+<div class="mktoText" id="art6">
+<table class="wInner" border="0" cellpadding="0" cellspacing="0" ro=
+le="presentation" style="width: 560px;">
+<tbody>
+<tr>
+<td align="center" valign="top"><!--Image --> <a href=
+"http://go.litmus.com/ODY0LVZQWi0xMzEAAAGF2gU4NfyXp33tFLhMhE1kpzOhsljRc0KOX=
+vJKMPNihj9pejljfy0cDxtNdXzX0qVKJHXF0Ec=" style="text-decoration: none;"
+><img class="fadeimg" src="https://campaigns.litmus.com/_email/2022/Jul=
+y/2022-07-Newsletter/20220715_mod5.2_desktop.png" width="560" height="2=
+49" alt="A lantern with a Litmus Live logo light up inside" style="widt=
+h: 100%; max-width: 560px; height: auto;" /></a></td>
+</tr>
+<tr>
+<td align="center" valign="top" style="padding: 20px 0 0;"><!--h2-->
+<h2><a href=
+"http://go.litmus.com/ODY0LVZQWi0xMzEAAAGF2gU4NnNJburVoMaeoEqDXtYpioxUSrjIn=
+33tDT1AJ5f5P2Sg7cFpcNpqWikmg7ZaUjWVXDM="
+>Email geeks: It&rsquo;s your time to shine</a></h2>
+</td>
+</tr>
+<tr>
+<td align="left" valign="top" style="padding: 20px 0 0;"><!--Paragrap=
+h block-->
+<p style="text-align: left;">Share your knowledge and passion about all t=
+hings email at our annual email conference, Litmus Live. From DEI and inclu=
+sion to email development and omnichannel marketing&mdash;we want to hear f=
+rom you. Learn how to submit your proposal, today!</p>
+</td>
+</tr>
+<tr>
+<td align="center" valign="top" style="padding: 20px 0 0;"><!--cta-->=
+ <a href=
+"http://go.litmus.com/ODY0LVZQWi0xMzEAAAGF2gU4Nh3z_sIMWccATGASo6BAZAdda29St=
+4PErIM-EuMfmt-unNMaLxcrbW8hxNenRiD9dRo=" class="cta btn-blue" style="=
+background-color: #0f618a; background-image: linear-gradient(#0F618A,#0F618=
+A);"
+> <!--[if mso]><i style="letter-spacing: 25px;mso-font-width:-100%;mso-te=
+xt-raise:30pt">&nbsp;</i><![endif]--><span style="mso-text-raise: 15pt;">=
+<span class="gmail-screen"><span class="gmail-difference">Step into the=
+ spotlight</span></span></span> <!--[if mso]><i style="letter-spacing: 25=
+px;mso-font-width:-100%">&nbsp;</i><![endif]--></a></td>
+</tr>
+</tbody>
+</table>
+</div> </td>
+</tr>
+<!--end Secondary Article-->
+<tr>
+<td align="center" valign="top">
+<div class="mktoText" id="art7">
+<table class="wFull" cellpadding="0" cellspacing="0" border="0" rol=
+e="presentation" style="width:600px;">
+ <!-- Start Secondary Article-->
+ <tbody>
+  <tr>
+   <td aria-hidden="true" align="left" valign="top" style="font-siz=
+e:20px;line-height:20px;mso-line-height-rule: exactly;">&nbsp;</td>
+  </tr>
+  <tr>
+   <td class="darkmode2" align="center" valign="top" style="padding=
+:20px 0; background-color: #ffffff;">
+    <table class="wInner" border="0" cellpadding="0" cellspacing="0=
+" role="presentation" style="width: 560px;">
+     <tbody>
+      <tr>
+       <td align="center" valign="top">
+        <!--h2--> <h2><a href=
+"http://go.litmus.com/ODY0LVZQWi0xMzEAAAGF2gU4NfRtJweXw8ibL76r9sTQ-PtyxFE7S=
+DaV19rWE4bb7qkGTh-lo7wGnZz50JSrWg113a0="
+>Top email clients last month</a></h2> </td>
+      </tr>
+      <tr>
+       <td align="left" valign="top" style="padding: 20px 0 0;">
+        <!--Paragraph block--> <p style="text-align: left;">Apple=E2=80=
+=99s still the most popular email client, but there have been some major sh=
+ifts in the top 10.</p> </td>
+      </tr>
+      <tr>
+       <td align="center" valign="top" style="padding: 20px 0;">
+        <table class="darkmode" border="0" cellpadding="0" cellspacin=
+g="0" role="presentation" style="background-color: #F1F5F9; width: 10=
+0%;">
+         <tbody>
+          <tr>
+           <td class="bgImg" style="width: 560px; height: 288px; backgr=
+ound: url('https://campaigns.litmus.com/_email/2022/July/2022-07-Newsletter=
+/ECMS-desktop.png'); background-size: 100% 100%; padding: 15px;" valign="=
+top">
+            <!--[if gte mso 9]>
+                                          <v:rect xmlns:v="urn:schemas-mi=
+crosoft-com:vml" fill="true" stroke="false" style="width:560px;height=
+:288px;">
+                                            <v:fill type="frame" src="h=
+ttps://campaigns.litmus.com/_email/2022/July/2022-07-Newsletter/ECMS-deskto=
+p.png" color="none" />
+                                            <v:textbox inset="15px, 15px,=
+ 0, 0">
+                                          <![endif]-->
+            <div>
+             <table border="0" cellpadding="0" cellspacing="0" role=
+="presentation" style="width: 100%;">
+              <tbody>
+               <tr>
+                <td class="block" align="left" valign="middle" width=
+="171"> <p style="font-family:Helvetica, Arial, sans-serif; font-size:1=
+6px; line-height:28px; color:#262524; margin:0; text-align: left;"><strong>=
+Apple: 58.3%</strong></p> </td>
+                <td class="block" align="left" valign="middle">
+                 <table border="0" cellpadding="0" cellspacing="0" ro=
+le="presentation" style="width:60%;">
+                  <tbody>
+                   <tr>
+                    <td align="left" valign="top" style="background-i=
+mage: url('https://campaigns.litmus.com/_email/2022/July/2022-07-Newsletter=
+/footprints.png'); background-size: 48px 34px; background-repeat: repeat-x;=
+ background-position: 2px center; line-height: 34px; mso-line-height-rule: =
+exactly;background-color: #C3BF4B;"> &nbsp; </td>
+                   </tr>
+                  </tbody>
+                 </table> </td>
+               </tr>
+               <tr>
+                <td class="lh-6" aria-hidden="true" colspan="2" align=
+="left" valign="top" style="font-size:27px;line-height:27px;mso-line-=
+height-rule: exactly;">&nbsp;</td>
+               </tr>
+               <tr>
+                <td class="block" align="left" valign="middle" width=
+="171"> <p style="font-family:Helvetica, Arial, sans-serif; font-size:1=
+6px; line-height:28px; color:#262524; margin:0; text-align: left;"><strong>=
+Gmail: 28.6%</strong></p> </td>
+                <td class="block" align="left" valign="middle">
+                 <table border="0" cellpadding="0" cellspacing="0" ro=
+le="presentation" style="width:30%">
+                  <tbody>
+                   <tr>
+                    <td align="left" valign="top" style="background-i=
+mage: url('https://campaigns.litmus.com/_email/2022/July/2022-07-Newsletter=
+/footprints.png'); background-size: 48px 34px; background-repeat: repeat-x;=
+ background-position: 2px center; line-height: 34px; mso-line-height-rule: =
+exactly;background-color: #C3BF4B;"> &nbsp; </td>
+                   </tr>
+                  </tbody>
+                 </table> </td>
+               </tr>
+               <tr>
+                <td class="lh-6" aria-hidden="true" colspan="2" align=
+="left" valign="top" style="font-size:27px;line-height:27px;mso-line-=
+height-rule: exactly;">&nbsp;</td>
+               </tr>
+               <tr>
+                <td class="block" align="left" valign="middle" width=
+="171"> <p style="font-family:Helvetica, Arial, sans-serif; font-size:1=
+6px; line-height:28px; color:#262524; margin:0; text-align: left;"><strong>=
+Outlook: 4.4%</strong></p> </td>
+                <td class="block" align="left" valign="middle">
+                 <table border="0" cellpadding="0" cellspacing="0" ro=
+le="presentation" style="width:5%;">
+                  <tbody>
+                   <tr>
+                    <td align="left" valign="top" style="background-i=
+mage: url('https://campaigns.litmus.com/_email/2022/July/2022-07-Newsletter=
+/footprints.png'); background-size: 48px 34px; background-repeat: repeat-x;=
+ background-position: 2px center; line-height: 34px; mso-line-height-rule: =
+exactly;background-color: #C3BF4B;"> &nbsp; </td>
+                   </tr>
+                  </tbody>
+                 </table> </td>
+               </tr>
+               <tr>
+                <td class="lh-6" aria-hidden="true" colspan="2" align=
+="left" valign="top" style="font-size:27px;line-height:27px;mso-line-=
+height-rule: exactly;">&nbsp;</td>
+               </tr>
+               <tr>
+                <td class="block" align="left" valign="middle" width=
+="171"> <p style="font-family:Helvetica, Arial, sans-serif; font-size:1=
+6px; line-height:28px; color:#262524; margin:0; text-align: left;"><strong>=
+Yahoo Mail: 3.3%</strong></p> </td>
+                <td class="block" align="left" valign="middle">
+                 <table border="0" cellpadding="0" cellspacing="0" ro=
+le="presentation" style="width:4%;">
+                  <tbody>
+                   <tr>
+                    <td align="left" valign="top" style="background-i=
+mage: url('https://campaigns.litmus.com/_email/2022/July/2022-07-Newsletter=
+/footprints.png'); background-size: 48px 34px; background-repeat: repeat-x;=
+ background-position: 2px center; line-height: 34px; mso-line-height-rule: =
+exactly;background-color: #C3BF4B;"> &nbsp; </td>
+                   </tr>
+                  </tbody>
+                 </table> </td>
+               </tr>
+               <tr>
+                <td class="lh-6" aria-hidden="true" colspan="2" align=
+="left" valign="top" style="font-size:27px;line-height:27px;mso-line-=
+height-rule: exactly;">&nbsp;</td>
+               </tr>
+               <tr>
+                <td class="block" align="left" valign="middle" width=
+="171"> <p style="font-family:Helvetica, Arial, sans-serif; font-size:1=
+6px; line-height:28px; color:#262524; margin:0; text-align: left;"><strong>=
+Google Android: 1.6%</strong></p> </td>
+                <td class="block" align="left" valign="middle">
+                 <table border="0" cellpadding="0" cellspacing="0" ro=
+le="presentation" style="width:2%;">
+                  <tbody>
+                   <tr>
+                    <td align="left" valign="top" style="background-i=
+mage: url('https://campaigns.litmus.com/_email/2022/July/2022-07-Newsletter=
+/footprints.png'); background-size: 48px 34px; background-repeat: repeat-x;=
+ background-position: 2px center; line-height: 34px; mso-line-height-rule: =
+exactly;background-color: #C3BF4B;"> &nbsp; </td>
+                   </tr>
+                  </tbody>
+                 </table> </td>
+               </tr>
+              </tbody>
+             </table>
+            </div>
+            <!--[if gte mso 9]>
+                                                        </v:textbox>
+                                                      </v:rect>
+                                                      <![endif]--> </td>
+          </tr>
+         </tbody>
+        </table> </td>
+      </tr>
+      <tr>
+       <td align="center" valign="top">
+        <!--cta--> <a href=
+"http://go.litmus.com/ODY0LVZQWi0xMzEAAAGF2gU4NN0wDPHP-ep02_UZgtXRJjJ0_LbAy=
+3AO2TpboqYfHWTP4ULlERV02nq1aQ5p-pMk108=" class="cta btn-blue" style="=
+background-color: #0F618A;background-image:linear-gradient(#0F618A,#0F618A);"
+>
+         <!--[if mso]><i style="letter-spacing: 25px;mso-font-width:-100%;mso-text-raise:30pt">&nbsp;</i><![endif]--><span style="mso-text-raise:1=
+5pt;"><span class="gmail-screen"><span class="gmail-difference">See the=
+ shifts</span></span></span>
+         <!--[if mso]><i style="letter-spacing: 25px;mso-font-width:-100%=
+">&nbsp;</i><![endif]--></a> </td>
+      </tr>
+     </tbody>
+    </table> </td>
+  </tr>
+  <!--end Secondary Article-->
+ </tbody>
+</table>
+</div> </td>
+</tr>
+<!-- Start Secondary Article-->
+<tr>
+<td aria-hidden="true" align="left" valign="top" style="font-size:2=
+0px;line-height:20px;mso-line-height-rule: exactly;">&nbsp;</td>
+</tr>
+<tr>
+<td class="darkmode2 tPad-10" align="center" valign="top" style="pa=
+dding:0 0 20px; background-color: #ffffff;">
+<div class="mktoText" id="art8">
+<table class="wInner" border="0" cellpadding="0" cellspacing="0" ro=
+le="presentation" style="width: 560px;">
+<tbody>
+<tr>
+<td align="center" valign="top">
+<!--Image --> <a href=
+"http://go.litmus.com/ODY0LVZQWi0xMzEAAAGF2gU4NRECs9HmA7giwVHTz-DIzK-Kbdaak=
+FXzuXgbI8lUGWsglI149c6ZIfj2jgst_7Vtxuw=" style="text-decoration: none;"
+><img class="fadeimg" src="https://campaigns.litmus.com/_email/2022/Jul=
+y/2022-07-Newsletter/20220715_mod7_desktop.png" width="560" height="249=
+" alt="A map over a bunch of emails" style="width: 100%; max-width: 560=
+px; height: auto;"></a> </td>
+</tr>
+<tr>
+<td align="center" valign="top" style="padding: 20px 0 0;">
+<!--h2--> <h2><a href=
+"http://go.litmus.com/ODY0LVZQWi0xMzEAAAGF2gU4Nmvnl1S0fqYrd45kODXAXylSa0lAp=
+CR3R-p_lsSW3b_i6P4OB2ehmJ3Qoo31FekyDLU="
+>Get lost in our favorite emails</a></h2> </td>
+</tr>
+<tr>
+<td align="left" valign="top" style="padding: 20px 0 0;">
+<!--Paragraph block--> <p style="text-align: left;">Brands like MeUndies,=
+ Todoist, and Anthropologie sent our favorite emails in June.</p> </td>
+</tr>
+<tr>
+<td align="center" valign="top" style="padding: 20px 0 0;">
+<!--cta--> <a href=
+"http://go.litmus.com/ODY0LVZQWi0xMzEAAAGF2gU4NIA6FmZWphEubQ1cfN4BxbIGGWdti=
+X657S1JmDkPeKrBK5Gch5orATP-parAhDXO7j8=" class="cta btn-blue" style="=
+background-color: #0F618A; background-image:linear-gradient(#0F618A,#0F618A=
+);"
+>
+<!--[if mso]><i style="letter-spacing: 25px;mso-font-width:-100%;mso-text=
+-raise:30pt">&nbsp;</i><![endif]--><span style="mso-text-raise:15pt;"><sp=
+an class="gmail-screen"><span class="gmail-difference">Journey through =
+our faves</span></span></span>
+<!--[if mso]><i style="letter-spacing: 25px;mso-font-width:-100%">&nbsp;<=
+/i><![endif]--></a> </td>
+</tr>
+</tbody>
+</table>
+</div> </td>
+</tr>
+<!--end Secondary Article-->
+<tr>
+<td aria-hidden="true" align="left" valign="top" style="font-size:2=
+0px;line-height:20px;mso-line-height-rule: exactly;">&nbsp;</td>
+</tr>
+<tr>
+<td align="left" valign="top">
+<div class="mktoText" id="events">
+<!--[if (gte mso 9)|(IE)]><!-->
+<input type="radio" class="tabcheck" style="display:none !important;"=
+ checked>
+<div style="height:0px;max-height:0px;overflow:hidden;">
+<label><input type="radio" name="tab" id="tab1" checked> <span>
+<div class="title1 tab">
+ Virtual
+</div> <label><input type="radio" name="tab" id="tab2"> <span>
+<div class="title2 tab">
+ In person
+</div>
+<div class="content2" style="height:0px;max-height:0px;overflow:hidden;=
+">
+<div class="darkmode2" align="center" valign="top" style="padding: =
+30px 20px; background-color: #CECB69;">
+<a href=
+"http://go.litmus.com/ODY0LVZQWi0xMzEAAAGF2gU4NWFLsc5L5vn5RhJ5BXriXUyyLipOB=
+nugIa8HDU7D0bRESANAh7e9cxBAqZE9N2F1I_E="
+><img src="https://campaigns.litmus.com/_email/2022/July/2022-07-Newslett=
+er/202207_calendar_blue.png" width="113" height="113" alt="Calendar I=
+con"></a>
+<h2 style="margin: 20px 0 0;"><a href=
+"http://go.litmus.com/ODY0LVZQWi0xMzEAAAGF2gU4Ncqn_84eWVjMvlOQ_MTN0CJWN_PMc=
+phCxC2k1IHKd3JozoTAtK1prs0eVdMyw_EThPs="
+>Embark on your next email adventure</a></h2>
+<p style="margin: 10px 0 0;">Join us for an event or two (IRL and virtual=
+ly)</p>
+<div class="lil-banner darkmode">
+<a href=
+"http://go.litmus.com/ODY0LVZQWi0xMzEAAAGF2gU4Npf-WnXpxWWpAL727q6sq_trBKIen=
+65dm67LTQq_IznHQOnBub6mbsXXlrWbkrhnZUw="
+><img class="fadeimg" src="https://campaigns.litmus.com/_email/2022/Jul=
+y/2022-07-Newsletter/202207-mod8.1.png" width="105" height="100" alt==
+"A white e in a red shopping bag"></a>
+<br class="mobile">
+<p class="cAlign" style="margin: 0 30px; text-align: left;"><strong>Aug=
+ 8-10:</strong> <a href=
+"http://go.litmus.com/ODY0LVZQWi0xMzEAAAGF2gU4Nsne31h3obdagdMBBI8O2RbHC5S_E=
+xCSGVwPqgFNi3JWVo_ugJm3uXl1X9BlVxIavr0="
+>eTailBoston</a> </p>
+</div>
+<div class="lil-banner darkmode">
+<a href=
+"http://go.litmus.com/ODY0LVZQWi0xMzEAAAGF2gU4NMOODliZhb9MC0fDCDTF9053T1qfA=
+EnvZRw6iDc022AOYjJg1ut1B_qxcAJkQUz5tDA="
+><img class="fadeimg" src="https://campaigns.litmus.com/_email/2022/Jul=
+y/2022-07-Newsletter/202207-mod8.4.png" width="105" height="100" alt==
+"Hubspot logo"></a>
+<p class="cAlign" style="margin: 0 30px; text-align: left;"><strong>Sep=
+ 6-9:</strong> <a href=
+"http://go.litmus.com/ODY0LVZQWi0xMzEAAAGF2gU4NQ6ZAi1YmV1SZBBxNGSUIwu0NtMEF=
+qXVDPUkpeC6uXKS2cL45rXi4vuuQDFjpC2Gj68="
+>INBOUND 2022</a> </p>
+</div>
+<div class="lil-banner darkmode">
+<a href=
+"http://go.litmus.com/ODY0LVZQWi0xMzEAAAGF2gU4NLjE9WNcdsHqEob0d2EWGcd03FYN6=
+hmU8RBIUIEECndV5i9HAicikTrmwpgjfTyNOeU="
+><img class="fadeimg" src="https://campaigns.litmus.com/_email/2022/Jul=
+y/2022-07-Newsletter/202207-mod8.5.png" width="105" height="100" alt==
+"Marketing Profs bird"></a>
+<p class="cAlign" style="margin: 0 30px; text-align: left;"><strong>Oct=
+ 13-14:</strong> <a href=
+"http://go.litmus.com/ODY0LVZQWi0xMzEAAAGF2gU4NlNclenLxIca2ezu2CfCwS1UfFPGS=
+ahjtbqXKqseDH_eQkJk8Qv0XFTgipAt0UZ1Kn4="
+>MarketingProfs B2B Forum</a> </p>
+</div>
+<div class="lil-banner darkmode">
+<a href=
+"http://go.litmus.com/ODY0LVZQWi0xMzEAAAGF2gU4NsqjsR3C8-QCnKWAFoTyBd35KR2En=
+3XgUhy7Az79dF-NNxvu6CkYV1FTtb7Cz6CUKeE="
+><img class="fadeimg" src="https://campaigns.litmus.com/_email/2022/Jul=
+y/2022-07-Newsletter/202207-mod8.6.png" width="105" height="100" alt==
+"Outline of half an ellipse"></a>
+<p class="cAlign" style="margin: 0 30px; text-align: left;"><strong>Oct=
+ 17-20:</strong> <a href=
+"http://go.litmus.com/ODY0LVZQWi0xMzEAAAGF2gU4NOVRWdAEkqf9lqlD-kYhxzrSPgjVU=
+EZqosTvPGYyxGCg7GaGAm66iOlvSg6GRGRKM="
+>Oracle CloudWorld</a> </p>
+</div>
+<div class="lil-banner darkmode" style="margin-bottom: 30px;">
+<a href=
+"http://go.litmus.com/ODY0LVZQWi0xMzEAAAGF2gU4NcnMic15QAEx2pLcs3y0ejBWuyE5H=
+BnrHxTl0HCIVgB1xcU0gSdw3au6iUTAxUt7DTg="
+><img class="fadeimg" src="https://campaigns.litmus.com/_email/2022/Jul=
+y/2022-07-Newsletter/202207-mod8.8.png" width="105" height="100" alt==
+"A location pin"></a>
+<p class="cAlign" style="margin: 0 30px; text-align: left;"><strong>Nov=
+ 2-3:</strong> <a href=
+"http://go.litmus.com/ODY0LVZQWi0xMzEAAAGF2gU4NqQwaQzsllhbO6DcBTS8bgGIXh-hF=
+c2xioXqIShj-p1mrWqh6ohnHZ_I2EL1oSoMtw4="
+>Digital Travel Summit</a> </p>
+</div>
+<a href=
+"http://go.litmus.com/ODY0LVZQWi0xMzEAAAGF2gU4Nb1XTNigT6yW4_1HjvQahZ4XT1PtZ=
+UZ3we2lXQPQN1t5vBusnNAa3YFLpLu8V_qc9hQ=" class="cta btn-blue" style="=
+background-color: #0F618A;background-image:linear-gradient(#0F618A,#0F618A);"
+><span style="mso-text-raise:15pt;"><span class="gmail-screen"><span cl=
+ass="gmail-difference">See all upcoming events</span></span></span></a>=
+
+</div>
+</div> </span> </label>
+<div class="content1" style="height:0px;max-height:0px;overflow:hidden;=
+">
+<div class="darkmode2" align="center" valign="top" style="padding: =
+30px 20px; background-color: #CECB69;">
+<a href=
+"http://go.litmus.com/ODY0LVZQWi0xMzEAAAGF2gU4NWFLsc5L5vn5RhJ5BXriXUyyLipOB=
+nugIa8HDU7D0bRESANAh7e9cxBAqZE9N2F1I_E="
+><img src="https://campaigns.litmus.com/_email/2022/July/2022-07-Newslett=
+er/202207_calendar_blue.png" width="113" height="113" alt="Calendar I=
+con"> </a>
+<h2 style="margin: 20px 0 0;"><a href=
+"http://go.litmus.com/ODY0LVZQWi0xMzEAAAGF2gU4Ncqn_84eWVjMvlOQ_MTN0CJWN_PMc=
+phCxC2k1IHKd3JozoTAtK1prs0eVdMyw_EThPs="
+>Embark on your next email adventure</a></h2>
+<p style="margin: 10px 0 0;">Join us IRL or virtually for a webinar (or t=
+wo)</p>
+<div class="lil-banner darkmode">
+<a href=
+"http://go.litmus.com/ODY0LVZQWi0xMzEAAAGF2gU4NSrnhMUsh9pPTdh6OgKOmhvvi8lRO=
+i36H9igvljy87_h5Tmmk8AygWnAqH5f7spVnLA="
+><img class="fadeimg" src="https://campaigns.litmus.com/_email/2022/Jul=
+y/2022-07-Newsletter/202207-mod8.2.png" width="105" height="100" alt==
+"Microphone"></a>
+<p class="cAlign" style="margin: 0 30px; text-align: left;"><strong>Aug=
+ 18:</strong> <a href=
+"http://go.litmus.com/ODY0LVZQWi0xMzEAAAGF2gU4NOQmaOaQgD8LcPiFt4mLTaAF9ImLG=
+ugrZrTysSoehFmGlCjwEEARrFLeLbd3JGNfK0I="
+>Litmus Talks: Email Testing: Your Key Ingredient to Winning Campaigns</a> =
+</p>
+</div>
+<div class="lil-banner darkmode">
+<a href=
+"http://go.litmus.com/ODY0LVZQWi0xMzEAAAGF2gU4ND5lDoRJeqRlw7PH-JqAUGlTmnMje=
+ecbh99Z_xwQ_ZkzkORUGxIVJ-4RZ0oVKK8V27o="
+><img class="fadeimg" src="https://campaigns.litmus.com/_email/2022/Jul=
+y/2022-07-Newsletter/202207-mod8.3.png" width="105" height="100" alt==
+"Microphone"></a>
+<p class="cAlign" style="margin: 0 30px; text-align: left;"><strong>Aug=
+ 30:</strong> <a href=
+"http://go.litmus.com/ODY0LVZQWi0xMzEAAAGF2gU4NZ66KElqSvpnpquiE9aMuqTIDyAP6=
+jEddxsp5US5orMSfCAV91yEwVoPB1pu-F2dCc4="
+>Litmus Certified begins</a> </p>
+</div>
+<div class="lil-banner darkmode" style="margin-bottom: 30px;">
+<a href=
+"http://go.litmus.com/ODY0LVZQWi0xMzEAAAGF2gU4NVMm_g_XnI8_DotcRtfVmicgeIuNq=
+ZheJaI1LL_ldGaTraKNfm2b4wbxZaDTBBiU4iI="
+><img class="fadeimg" src="https://campaigns.litmus.com/_email/2022/Jul=
+y/2022-07-Newsletter/202207-mod8.7.png" width="105" height="100" alt==
+"Litmus Live logo"></a>
+<br class="mobile">
+<p class="cAlign" style="margin: 0 30px; text-align: left;"><strong>Oct=
+ 25-26:</strong> <a href=
+"http://go.litmus.com/ODY0LVZQWi0xMzEAAAGF2gU4NrDpIHtUE79ZqOpJynoeYEBHG9C9t=
+GASRecpiZI2SK5s4jq4-uy1HRyDuEFdGJJFQu0="
+>Litmus Live</a> </p>
+</div>
+<a href=
+"http://go.litmus.com/ODY0LVZQWi0xMzEAAAGF2gU4Nb1XTNigT6yW4_1HjvQahZ4XT1PtZ=
+UZ3we2lXQPQN1t5vBusnNAa3YFLpLu8V_qc9hQ=" class="cta btn-blue" style="=
+background-color: #0F618A;background-image:linear-gradient(#0F618A,#0F618A);"
+><span style="mso-text-raise:15pt;"><span class="gmail-screen"><span cl=
+ass="gmail-difference">See all upcoming events</span></span></span></a>=
+
+</div>
+</div> </span> </label>
+</div>
+<input type="radio" class="tabcheck" style="display:none !important;"=
+ checked>
+<!--<![endif]-->
+<table class="fallback" border="0" cellpadding="0" cellspacing="0" =
+role="presentation" style="width: 100%;">
+<tbody>
+<tr>
+<td class="darkmode2" align="center" valign="top" style="padding:30=
+px 0; background-color: #CECB69;">
+<table border="0" cellpadding="0" cellspacing="0" role="presentatio=
+n">
+<tbody>
+<tr>
+<td align="center" valign="top"> <a href=
+"http://go.litmus.com/ODY0LVZQWi0xMzEAAAGF2gU4Ndf-XMr7ER7TciDILIihoWoOZzM4I=
+8xlHIylwxdqO5BN2qoimbFfVBUHPjQSvqAWLZ4="
+><img src="https://campaigns.litmus.com/_email/2022/July/2022-07-Newslett=
+er/202207_calendar_blue.png" width="113" height="117" alt="Calendar I=
+con"> </a> </td>
+</tr>
+</tbody>
+</table>
+<table class="wInner" border="0" cellpadding="0" cellspacing="0" ro=
+le="presentation" style="width: 540px;">
+<tbody>
+<tr>
+<td align="center" valign="top" style="padding: 20px 0 0;"> <h2><a hr=
+ef=
+"http://go.litmus.com/ODY0LVZQWi0xMzEAAAGF2gU4NJQ8MYQNUU23GLCiFyrk9cVTfQPIx=
+YxTq_zoV5vLffvOZ6oz-n-bXfmVHRx_y-nQkAw="
+>Embark on your next email adventure</a></h2> </td>
+</tr>
+<tr>
+<td align="center" valign="top" style="padding: 10px 0 0;">
+<!--Paragraph block--> <p>Join us for an event or two (IRL and virtually)</=
+p> </td>
+</tr>
+<tr>
+<td style="font-size:0; padding-top: 15px;" align="center" valign="to=
+p">
+<!--[if (gte mso 9)|(IE)]> <table cellpadding="0" cellspacing="0" borde=
+r="0" role="presentation" style="width: 100%;">
+                                                    <tr>
+                                                    <td valign="top" styl=
+e="width: 105px;">
+                                                    <![endif]-->
+<div class="wFull" style="display:inline-block;vertical-align:middle;">=
+
+<table class="wFull" cellpadding="0" cellspacing="0" border="0" rol=
+e="presentation" style="width: 105px;">
+<tbody>
+<tr>
+<td class="tPad-20 darkmode" align="center" valign="top" style="bac=
+kground-color: #F5F4E0;">
+<table border="0" cellpadding="0" cellspacing="0" role="presentatio=
+n" style="width:105px; height: 100px;">
+<tbody>
+<tr>
+<td align="center" valign="middle"> <a href=
+"http://go.litmus.com/ODY0LVZQWi0xMzEAAAGF2gU4NmMisIwTXCcM--l2FiAx_T10Cz3Hx=
+wtuYD4KvO6AyeDl2Uyj_gudRNSjjuUomsGSa9Y="
+><img class="fadeimg" src="https://campaigns.litmus.com/_email/2022/Jul=
+y/2022-07-Newsletter/202207-mod8.1.png" width="105" height="100" alt==
+"A white e in a red shopping bag"></a> </td>
+</tr>
+</tbody>
+</table> </td>
+</tr>
+</tbody>
+</table>
+</div>
+<!--[if (gte mso 9)|(IE)]> </td>
+                                                    <td valign="top" styl=
+e="width:435px;">
+                                                    <![endif]-->
+<div class="wFull" style="display:inline-block;vertical-align:middle;">=
+
+<table class="wFull" cellpadding="0" cellspacing="0" border="0" rol=
+e="presentation" style="width:435px;">
+<tbody>
+<tr>
+<td class="tPad-15 bPad-20 darkmode" align="left" valign="middle" sty=
+le="background-color: #F5F4E0;padding: 36px 0;" bgcolor="#F5F4E0"> <p c=
+lass="cAlign" style="margin: 0 30px; text-align: left;"> <strong class=
+="blueLinks">Aug 8-10:</strong> <a href=
+"http://go.litmus.com/ODY0LVZQWi0xMzEAAAGF2gU4NQbexu3U_QsdeYRrUOxQl9pmxGn_l=
+DGfhMjdO8SOr3nYYSalAp07rBoJHg7JF-J5viQ="
+>eTailBoston</a> </p> </td>
+</tr>
+</tbody>
+</table>
+</div>
+<!--[if (gte mso 9)|(IE)]> </td>
+                                                    </tr>
+                                                    </table>
+                                                    <![endif]--> </td>
+</tr>
+<tr>
+<td style="font-size:0; padding-top: 15px;" align="center" valign="to=
+p">
+<!--[if (gte mso 9)|(IE)]> <table cellpadding="0" cellspacing="0" borde=
+r="0" role="presentation" style="width: 100%;">
+                                                    <tr>
+                                                    <td valign="top" styl=
+e="width: 105px;">
+                                                    <![endif]-->
+<div class="wFull" style="display:inline-block;vertical-align:middle;">=
+
+<table class="wFull" cellpadding="0" cellspacing="0" border="0" rol=
+e="presentation" style="width: 105px;">
+<tbody>
+<tr>
+<td class="tPad-20 darkmode" align="center" valign="top" style="bac=
+kground-color: #F5F4E0;">
+<table border="0" cellpadding="0" cellspacing="0" role="presentatio=
+n" style="width:105px; height: 100px;">
+<tbody>
+<tr>
+<td align="center" valign="middle"> <a href=
+"http://go.litmus.com/ODY0LVZQWi0xMzEAAAGF2gU4NZdavxoc9zwWmnIHUNn01u0Lt90R5=
+snKtbW64NqMs2lHbDBw_D9iymstTc3XG2QuUK0="
+><img class="fadeimg" src="https://campaigns.litmus.com/_email/2022/Jul=
+y/2022-07-Newsletter/202207-mod8.2.png" width="105" height="100" alt==
+"Microphone"></a> </td>
+</tr>
+</tbody>
+</table> </td>
+</tr>
+</tbody>
+</table>
+</div>
+<!--[if (gte mso 9)|(IE)]> </td>
+                                                    <td valign="top" styl=
+e="width:435px;">
+                                                    <![endif]-->
+<div class="wFull" style="display:inline-block;vertical-align:middle;">=
+
+<table class="wFull" cellpadding="0" cellspacing="0" border="0" rol=
+e="presentation" style="width:435px;">
+<tbody>
+<tr>
+<td class="tPad-15 bPad-20 darkmode" align="left" valign="middle" sty=
+le="background-color: #F5F4E0;padding: 22px 0;" bgcolor="#F5F4E0"> <p c=
+lass="cAlign" style="margin: 0 30px; text-align: left;"> <strong class=
+="blueLinks">Aug 18:</strong> <a href=
+"http://go.litmus.com/ODY0LVZQWi0xMzEAAAGF2gU4NTa9-KLa-A4itKZQAOmly2SiP-ulX=
+OhokZXbMKZlJ40-SP8XOK2gYAaHUoG6NtCMwe8="
+>Litmus Talks: Email Testing: Your Key Ingredient to Winning Campaigns</a> =
+</p> </td>
+</tr>
+</tbody>
+</table>
+</div>
+<!--[if (gte mso 9)|(IE)]> </td>
+                                                    </tr>
+                                                    </table>
+                                                    <![endif]--> </td>
+</tr>
+<tr>
+<td style="font-size:0; padding-top: 15px;" align="center" valign="to=
+p">
+<!--[if (gte mso 9)|(IE)]> <table cellpadding="0" cellspacing="0" borde=
+r="0" role="presentation" style="width: 100%;">
+                                                    <tr>
+                                                    <td valign="top" styl=
+e="width: 105px;">
+                                                    <![endif]-->
+<div class="wFull" style="display:inline-block;vertical-align:middle;">=
+
+<table class="wFull" cellpadding="0" cellspacing="0" border="0" rol=
+e="presentation" style="width: 105px;">
+<tbody>
+<tr>
+<td class="tPad-20 darkmode" align="center" valign="top" style="bac=
+kground-color: #F5F4E0;">
+<table border="0" cellpadding="0" cellspacing="0" role="presentatio=
+n" style="width:105px; height: 100px;">
+<tbody>
+<tr>
+<td align="center" valign="middle"> <a href=
+"http://go.litmus.com/ODY0LVZQWi0xMzEAAAGF2gU4NBYE30X1euveUvK1McWjEViBp0Z8H=
+oQYD1tFzx4SBdUP_-_2ZrXFeuh-7o1zTK_QlLY="
+><img class="fadeimg" src="https://campaigns.litmus.com/_email/2022/Jul=
+y/2022-07-Newsletter/202207-mod8.3.png" width="105" height="100" alt==
+"Microphone"></a> </td>
+</tr>
+</tbody>
+</table> </td>
+</tr>
+</tbody>
+</table>
+</div>
+<!--[if (gte mso 9)|(IE)]> </td>
+                                                    <td valign="top" styl=
+e="width:435px;">
+                                                    <![endif]-->
+<div class="wFull" style="display:inline-block;vertical-align:middle;">=
+
+<table class="wFull" cellpadding="0" cellspacing="0" border="0" rol=
+e="presentation" style="width:435px;">
+<tbody>
+<tr>
+<td class="tPad-15 bPad-20 darkmode" align="left" valign="middle" sty=
+le="background-color: #F5F4E0;padding: 36px 0;" bgcolor="#F5F4E0"> <p c=
+lass="cAlign" style="margin: 0 30px; text-align: left;"> <strong>Aug 30=
+:</strong> <a href=
+"http://go.litmus.com/ODY0LVZQWi0xMzEAAAGF2gU4NFD6hbb4r0EW72pvhNiYB6nh_o49O=
+A2mNOdRR4mqtHo6Im7op2tRUAkqOwkihA5-Zdc="
+>Litmus Certified begins</a> </p> </td>
+</tr>
+</tbody>
+</table>
+</div>
+<!--[if (gte mso 9)|(IE)]> </td>
+                                                    </tr>
+                                                    </table>
+                                                    <![endif]--> </td>
+</tr>
+<tr>
+<td style="font-size:0; padding-top: 15px;" align="center" valign="to=
+p">
+<!--[if (gte mso 9)|(IE)]> <table cellpadding="0" cellspacing="0" borde=
+r="0" role="presentation" style="width: 100%;">
+                                                    <tr>
+                                                    <td valign="top" styl=
+e="width: 105px;">
+                                                    <![endif]-->
+<div class="wFull" style="display:inline-block;vertical-align:middle;">=
+
+<table class="wFull" cellpadding="0" cellspacing="0" border="0" rol=
+e="presentation" style="width: 105px;">
+<tbody>
+<tr>
+<td class="tPad-20 darkmode" align="center" valign="top" style="bac=
+kground-color: #F5F4E0;">
+<table border="0" cellpadding="0" cellspacing="0" role="presentatio=
+n" style="width:105px; height: 100px;">
+<tbody>
+<tr>
+<td align="center" valign="middle"> <a href=
+"http://go.litmus.com/ODY0LVZQWi0xMzEAAAGF2gU4NV5_KdIPOZClD8lnODIQOyjUdmgAt=
+pbD6fVoYNrWRq2WfSj7ZuDSUARRmJKDOhyPlps="
+><img class="fadeimg" src="https://campaigns.litmus.com/_email/2022/Jul=
+y/2022-07-Newsletter/202207-mod8.4.png" width="105" height="100" alt==
+"Hubspot logo"></a> </td>
+</tr>
+</tbody>
+</table> </td>
+</tr>
+</tbody>
+</table>
+</div>
+<!--[if (gte mso 9)|(IE)]> </td>
+                                                    <td valign="top" styl=
+e="width:435px;">
+                                                    <![endif]-->
+<div class="wFull" style="display:inline-block;vertical-align:middle;">=
+
+<table class="wFull" cellpadding="0" cellspacing="0" border="0" rol=
+e="presentation" style="width:435px;">
+<tbody>
+<tr>
+<td class="tPad-15 bPad-20 darkmode" align="left" valign="middle" sty=
+le="background-color: #F5F4E0;padding: 36px 0;" bgcolor="#F5F4E0"> <p c=
+lass="cAlign" style="margin: 0 30px; text-align: left;"> <strong>Sep 6-=
+9:</strong> <a href=
+"http://go.litmus.com/ODY0LVZQWi0xMzEAAAGF2gU4NV3id1PgRRYDxoG4n_2ZJB1VtWWWm=
+InivYcIShglrSrIbuFtMhj3A3mBWGUIp3F5x7M="
+>INBOUND 2022</a> </p> </td>
+</tr>
+</tbody>
+</table>
+</div>
+<!--[if (gte mso 9)|(IE)]> </td>
+                                                    </tr>
+                                                    </table>
+                                                    <![endif]--> </td>
+</tr>
+<tr>
+<td style="font-size:0; padding-top: 15px;" align="center" valign="to=
+p">
+<!--[if (gte mso 9)|(IE)]> <table cellpadding="0" cellspacing="0" borde=
+r="0" role="presentation" style="width: 100%;">
+                                                    <tr>
+                                                    <td valign="top" styl=
+e="width: 105px;">
+                                                    <![endif]-->
+<div class="wFull" style="display:inline-block;vertical-align:middle;">=
+
+<table class="wFull" cellpadding="0" cellspacing="0" border="0" rol=
+e="presentation" style="width: 105px;">
+<tbody>
+<tr>
+<td class="tPad-20 darkmode" align="center" valign="top" style="bac=
+kground-color: #F5F4E0;">
+<table border="0" cellpadding="0" cellspacing="0" role="presentatio=
+n" style="width:105px; height: 100px;">
+<tbody>
+<tr>
+<td align="center" valign="middle"> <a href=
+"http://go.litmus.com/ODY0LVZQWi0xMzEAAAGF2gU4Nidu13RvoQ2o2phQIUHz0xg7Yintt=
+_fdJiYx4TKCxXsn7btddX57eutQbwTBgrrdGHc="
+><img class="fadeimg" src="https://campaigns.litmus.com/_email/2022/Jul=
+y/2022-07-Newsletter/202207-mod8.5.png" width="105" height="100" alt==
+"Marketing Profs bird"></a> </td>
+</tr>
+</tbody>
+</table> </td>
+</tr>
+</tbody>
+</table>
+</div>
+<!--[if (gte mso 9)|(IE)]> </td>
+                                                    <td valign="top" styl=
+e="width:435px;">
+                                                    <![endif]-->
+<div class="wFull" style="display:inline-block;vertical-align:middle;">=
+
+<table class="wFull" cellpadding="0" cellspacing="0" border="0" rol=
+e="presentation" style="width:435px;">
+<tbody>
+<tr>
+<td class="tPad-15 bPad-20 darkmode" align="left" valign="middle" sty=
+le="background-color: #F5F4E0;padding: 36px 0;" bgcolor="#F5F4E0"> <p c=
+lass="cAlign" style="margin: 0 30px; text-align: left;"> <strong>Oct 13=
+-14:</strong> <a href=
+"http://go.litmus.com/ODY0LVZQWi0xMzEAAAGF2gU4NQwUETJa9K-KSbkEHDSeRTDWWRbmf=
+tNVJiwjLL8Ihqwrw2jqAHzwg9hOeanx1Rjw980="
+>MarketingProfs B2B Forum</a> </p> </td>
+</tr>
+</tbody>
+</table>
+</div>
+<!--[if (gte mso 9)|(IE)]> </td>
+                                                    </tr>
+                                                    </table>
+                                                    <![endif]--> </td>
+</tr>
+<tr>
+<td style="font-size:0; padding-top: 15px;" align="center" valign="to=
+p">
+<!--[if (gte mso 9)|(IE)]> <table cellpadding="0" cellspacing="0" borde=
+r="0" role="presentation" style="width: 100%;">
+                                                    <tr>
+                                                    <td valign="top" styl=
+e="width: 105px;">
+                                                    <![endif]-->
+<div class="wFull" style="display:inline-block;vertical-align:middle;">=
+
+<table class="wFull" cellpadding="0" cellspacing="0" border="0" rol=
+e="presentation" style="width: 105px;">
+<tbody>
+<tr>
+<td class="tPad-20 darkmode" align="center" valign="top" style="bac=
+kground-color: #F5F4E0;">
+<table border="0" cellpadding="0" cellspacing="0" role="presentatio=
+n" style="width:105px; height: 100px;">
+<tbody>
+<tr>
+<td align="center" valign="middle"> <a href=
+"http://go.litmus.com/ODY0LVZQWi0xMzEAAAGF2gU4NO16mU1ncOIeoy6h9dkACwz6yYFAf=
+-o3GxNYqu7EuHQklF2KQyrbiPxWE4E4BJSVMAY="
+><img class="fadeimg" src="https://campaigns.litmus.com/_email/2022/Jul=
+y/2022-07-Newsletter/202207-mod8.6.png" width="105" height="100" alt==
+"Outline of half an ellipse"></a> </td>
+</tr>
+</tbody>
+</table> </td>
+</tr>
+</tbody>
+</table>
+</div>
+<!--[if (gte mso 9)|(IE)]> </td>
+                                                    <td valign="top" styl=
+e="width:435px;">
+                                                    <![endif]-->
+<div class="wFull" style="display:inline-block;vertical-align:middle;">=
+
+<table class="wFull" cellpadding="0" cellspacing="0" border="0" rol=
+e="presentation" style="width:435px;">
+<tbody>
+<tr>
+<td class="tPad-15 bPad-20 darkmode" align="left" valign="middle" sty=
+le="background-color: #F5F4E0;padding: 36px 0;" bgcolor="#F5F4E0"> <p c=
+lass="cAlign" style="margin: 0 30px; text-align: left;"> <strong>Oct 17=
+-20:</strong> <a href=
+"http://go.litmus.com/ODY0LVZQWi0xMzEAAAGF2gU4Nsec8qX9L0miKnsU0JZkrdyO89Kdt=
+Kic2kXI2lOUR7gZbaYDyrdQZgQgNV_AF2-0PMA="
+>Oracle CloudWorld</a> </p> </td>
+</tr>
+</tbody>
+</table>
+</div>
+<!--[if (gte mso 9)|(IE)]> </td>
+                                                    </tr>
+                                                    </table>
+                                                    <![endif]--> </td>
+</tr>
+<tr>
+<td style="font-size:0; padding-top: 15px;" align="center" valign="to=
+p">
+<!--[if (gte mso 9)|(IE)]> <table cellpadding="0" cellspacing="0" borde=
+r="0" role="presentation" style="width: 100%;">
+                                                    <tr>
+                                                    <td valign="top" styl=
+e="width: 105px;">
+                                                    <![endif]-->
+<div class="wFull" style="display:inline-block;vertical-align:middle;">=
+
+<table class="wFull" cellpadding="0" cellspacing="0" border="0" rol=
+e="presentation" style="width: 105px;">
+<tbody>
+<tr>
+<td class="tPad-20 darkmode" align="center" valign="top" style="bac=
+kground-color: #F5F4E0;">
+<table border="0" cellpadding="0" cellspacing="0" role="presentatio=
+n" style="width:105px; height: 100px;">
+<tbody>
+<tr>
+<td align="center" valign="middle"> <a href=
+"http://go.litmus.com/ODY0LVZQWi0xMzEAAAGF2gU4NpWpeR-DRH8GRiJ_Jzw7Ql9SSyLEy=
+vjGt7X9IU3yB6MJe9gUV1mXkag12bGCQSvueGU="
+><img class="fadeimg" src="https://campaigns.litmus.com/_email/2022/Jul=
+y/2022-07-Newsletter/202207-mod8.7.png" width="105" height="100" alt==
+"Litmus Live logo"></a> </td>
+</tr>
+</tbody>
+</table> </td>
+</tr>
+</tbody>
+</table>
+</div>
+<!--[if (gte mso 9)|(IE)]> </td>
+                                                    <td valign="top" styl=
+e="width:435px;">
+                                                    <![endif]-->
+<div class="wFull" style="display:inline-block;vertical-align:middle;">=
+
+<table class="wFull" cellpadding="0" cellspacing="0" border="0" rol=
+e="presentation" style="width:435px;">
+<tbody>
+<tr>
+<td class="tPad-15 bPad-20 darkmode" align="left" valign="middle" sty=
+le="background-color: #F5F4E0;padding: 36px 0;" bgcolor="#F5F4E0"> <p c=
+lass="cAlign" style="margin: 0 30px; text-align: left;"> <strong>Oct 25=
+th-26:</strong> <a href=
+"http://go.litmus.com/ODY0LVZQWi0xMzEAAAGF2gU4Ncr9A7EdxhnS65vrJforW7jHJjyCc=
+YAPrYAxW17Wv4tARk_dnibh9KPsNhbjttGAb44="
+>Litmus Live</a> </p> </td>
+</tr>
+</tbody>
+</table>
+</div>
+<!--[if (gte mso 9)|(IE)]> </td>
+                                                    </tr>
+                                                    </table>
+                                                    <![endif]--> </td>
+</tr>
+<tr>
+<td style="font-size:0; padding-top: 15px;" align="center" valign="to=
+p">
+<!--[if (gte mso 9)|(IE)]> <table cellpadding="0" cellspacing="0" borde=
+r="0" role="presentation" style="width: 100%;">
+                                                    <tr>
+                                                    <td valign="top" styl=
+e="width: 105px;">
+                                                    <![endif]-->
+<div class="wFull" style="display:inline-block;vertical-align:middle;">=
+
+<table class="wFull" cellpadding="0" cellspacing="0" border="0" rol=
+e="presentation" style="width: 105px;">
+<tbody>
+<tr>
+<td class="tPad-20 darkmode" align="center" valign="top" style="bac=
+kground-color: #F5F4E0;">
+<table border="0" cellpadding="0" cellspacing="0" role="presentatio=
+n" style="width:105px; height: 100px;">
+<tbody>
+<tr>
+<td align="center" valign="middle"> <a href=
+"http://go.litmus.com/ODY0LVZQWi0xMzEAAAGF2gU4NlpXGnagm5XB1HHYNp-JZlC_78QKF=
+WGJzgV9S8l7O_nAF6xU0olRc-oC-JWLNUgq4-A="
+><img class="fadeimg" src="https://campaigns.litmus.com/_email/2022/Jul=
+y/2022-07-Newsletter/202207-mod8.8.png" width="105" height="100" alt==
+"A location pin"></a> </td>
+</tr>
+</tbody>
+</table> </td>
+</tr>
+</tbody>
+</table>
+</div>
+<!--[if (gte mso 9)|(IE)]> </td>
+                                                    <td valign="top" styl=
+e="width:435px;">
+                                                    <![endif]-->
+<div class="wFull" style="display:inline-block;vertical-align:middle;">=
+
+<table class="wFull" cellpadding="0" cellspacing="0" border="0" rol=
+e="presentation" style="width:435px;">
+<tbody>
+<tr>
+<td class="tPad-15 bPad-20 darkmode" align="left" valign="middle" sty=
+le="background-color: #F5F4E0;padding: 36px 0;" bgcolor="#F5F4E0"> <p c=
+lass="cAlign" style="margin: 0 30px; text-align: left;"> <strong>Nov 2-=
+3:</strong> <a href=
+"http://go.litmus.com/ODY0LVZQWi0xMzEAAAGF2gU4NBuhnHDsyXVr6X3wEA3z0v464XPiC=
+9V9b2tlQ_PSZBF-Z4YiN45dc0mgYhe0W5I_JQY="
+>Digital Travel Summit</a> </p> </td>
+</tr>
+</tbody>
+</table>
+</div>
+<!--[if (gte mso 9)|(IE)]> </td>
+                                                    </tr>
+                                                    </table>
+                                                    <![endif]--> </td>
+</tr>
+<tr>
+<td align="center" valign="top" style="padding: 20px 0 0;">
+<!--cta--> <a href=
+"http://go.litmus.com/ODY0LVZQWi0xMzEAAAGF2gU4Nb1XTNigT6yW4_1HjvQahZ4XT1PtZ=
+UZ3we2lXQPQN1t5vBusnNAa3YFLpLu8V_qc9hQ=" class="cta btn-blue" style="=
+background-color: #0F618A;background-image:linear-gradient(#0F618A,#0F618A);"
+>
+<!--[if mso]><i style="letter-spacing: 25px;mso-font-width:-100%;mso-text=
+-raise:30pt">&nbsp;</i><![endif]--><span style="mso-text-raise:15pt;"><sp=
+an class="gmail-screen"><span class="gmail-difference">See all upcoming=
+ events</span></span></span>
+<!--[if mso]><i style="letter-spacing: 25px;mso-font-width:-100%">&nbsp;<=
+/i><![endif]--></a> </td>
+</tr>
+</tbody>
+</table> </td>
+</tr>
+</tbody>
+</table>
+</div> </td>
+</tr>
+<!--end Event Block-->
+<tr>
+<td aria-hidden="true" align="left" valign="top" style="font-size:2=
+0px;line-height:20px;mso-line-height-rule: exactly;">&nbsp;</td>
+</tr>
+<tr>
+<td align="center" valign="top" style="padding: 30px 0 20px;">
+<div class="mktoText" id="h3">
+<!--h3-->
+<h3 style="font-size: 20px; line-height: 28px;">How did you like this mon=
+th=E2=80=99s&nbsp;newsletter?</h3>
+</div> </td>
+</tr>
+<tr>
+<td align="center" valign="top" style="padding-bottom: 30px;">
+<div class="mktoText" id="simple_poll">
+<table border="0" cellpadding="0" cellspacing="0" role="presentatio=
+n">
+<tbody>
+<tr>
+<td width="55" align="center" valign="middle"><a href=
+"http://go.litmus.com/ODY0LVZQWi0xMzEAAAGF2gU4NDat0Wk5KD9FXax46EmsEKuIG86A_=
+8XIszW6CxMOJuCIsFtEAWG3utrleG6ujHQY51s="
+><img src="https://img.kickdyn.com/imgpoll.png?c=14705.glOox5I54hDO9h9l=
+P4l1&amp;a=1" width="74" height="124" border="0" alt="You like us=
+, you really like us!"></a></td>
+<td width="50" style="font-size: 1px;">&nbsp;</td>
+<td width="55" align="center" valign="middle"><a href=
+"http://go.litmus.com/ODY0LVZQWi0xMzEAAAGF2gU4NZDO6hBaZxqitIle9nYLQdGZ7SanF=
+oy303ptMA0vaX2coSy4AFf_hc2sWabVCQ5RhZI="
+><img src="https://img.kickdyn.com/imgpoll.png?c=14705.glOox5I54hDO9h9l=
+P4l1&amp;a=2" width="74" height="124" border="0" alt="You've done=
+ better, but you've done worse."></a></td>
+<td width="50" style="font-size: 1px;">&nbsp;</td>
+<td width="55" align="center" valign="middle" style="vertical-align=
+: middle;"><a href=
+"http://go.litmus.com/ODY0LVZQWi0xMzEAAAGF2gU4NrH4H__sQTIpdqyDIcx3c8yE3xyxh=
+p53EgmuwN-MYIHr3f94AmedDU2RNy1-sIoInUE="
+><img src="https://img.kickdyn.com/imgpoll.png?c=14705.glOox5I54hDO9h9l=
+P4l1&amp;a=3" width="74" height="124" border="0" alt="It's not wo=
+rking for me."></a></td>
+</tr>
+</tbody>
+</table>
+</div> </td>
+</tr>
+<tr>
+<td align="center" valign="top" style="padding: 0 0 60px;">
+<div class="mktoText" id="body_copy">
+<!--Paragraph block-->
+<p style="font-size: 14px; line-height: 24px;"><a href=
+"http://go.litmus.com/ODY0LVZQWi0xMzEAAAGF2gU4NsVk80q8Aq9fgpj2sDp845NhkhGPr=
+4OLId3NitA5sN6w6BvA1CEdTSJtZ5i0O3uV13E="
+>Created with Litmus Personalize, powered by Kickdynamic</a></p>
+</div> </td>
+</tr>
+</tbody>
+</table> </td>
+</tr>
+<!--footer-->
+<tr>
+<td align="center" class="darkmode2" style="padding: 0px 15px; backgr=
+ound-color: #262524; background: linear-gradient(#262524, #262524);">
+<div class="mktoText" id="footer">
+<table role="presentation" class="wMobile" cellpadding="0" cellspacin=
+g="0" border="0" style="width: 600px; max-width: 600px;">
+<tbody>
+<tr>
+<td class="footer-dark" align="center" style="padding: 60px 0;">
+<div class="gmail-screen">
+<div class="gmail-difference">
+<p style="margin: 0 auto 30px;">You&rsquo;re receiving this email because=
+ you have a Litmus account. If you&rsquo;d prefer not to receive emails, yo=
+u can <a href=
+"http://go.litmus.com/dc/gwtKHhpoYqsSoaJk8p6nPUI61qAOO4p2ANEbLmeUjTwo5nWweu=
+JF5qs1gyBP3qoY/ODY0LVZQWi0xMzEAAAGF2gU4NhcxLS0nzezVK-zGusj3B71vHH1JUOwA-u=
+e5d0zt3ut6Yf9MLGPiseZWbhZIAzdBI="
+>update your preferences</a>.</p>
+</div>
+</div>
+<a href=
+"http://go.litmus.com/ODY0LVZQWi0xMzEAAAGF2gU4NTa_OjT_8pBjMz3k1Nwxez5uR3-WS=
+K5dLZj9Yf6duOePJAGi1EUjP0hCuh_mMkTjSkc=" target="_blank"
+> <img src="https://campaigns.litmus.com/_email/_global/images/logo_icon-=
+name-white.png" width="122" height="45" alt="Litmus" style="text-al=
+ign: center; font-weight: bold; font-size: 28px; line-height: 30px; text-de=
+coration: none; margin: 0 auto; padding: 0;" border="0" /> </a>
+<div class="gmail-screen">
+<div class="gmail-difference">
+<p class="blueLinks" style="font-size: 14px; line-height: 24px; padding=
+: 0; margin: 30px auto 5px;">675 Massachusetts Ave. Cambridge, MA 02139, US=
+A</p>
+<p class="keep-white" style="font-size: 14px; line-height: 24px; paddin=
+g: 0; margin: 0 auto 5px;"><a href="https://page.litmus.com/UnsubscribePa=
+ge.html?mkt_unsubscribe=1&mkt_tok=ODY0LVZQWi0xMzEAAAGF2gU4NzNe1gOKNQjU5=
+KtUuOg6cpWE_VbSGqpCWKdy8Zn8gvKR_WIOZbEqkK_tIXGTniskAzdjJGWN4EBDZPlYebm6MJl2=
+EfT0u5J9jJCSyw"> Unsubscribe</a> &nbsp;|&nbsp; <a href="https://page.litm=
+us.com/index.php/email/emailWebview?mkt_tok=ODY0LVZQWi0xMzEAAAGF2gU4NzNe1=
+gOKNQjU5KtUuOg6cpWE_VbSGqpCWKdy8Zn8gvKR_WIOZbEqkK_tIXGTniskAzdjJGWN4EBDZPlY=
+ebm6MJl2EfT0u5J9jJCSyw&md_id=6918"> View&nbsp;online</a> &nbsp;|&nbsp; <a=
+ href=
+"http://go.litmus.com/ODY0LVZQWi0xMzEAAAGF2gU4NDBqwjQoh5oIB6RoIkf422AFbvua7=
+xb0oAq19Y1cb_i-IdsE9hTC4p8N0DYJUG6OP9Y="
+> Privacy Policy</a></p>
+<p style="font-size: 14px; line-height: 24px; padding: 0; margin: 0 auto;=
+">&copy; 2022 Litmus Software, Inc. All rights&nbsp;reserved.</p>
+</div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div> </td>
+</tr>
+</tbody>
+</table>
+</div>
+<!--analytics-->
+<style data-ignore-inlining>@media (prefers-color-scheme: dark) 
+{ #_t::before {content:url('https://afke4430.emltrk.com/v2/afke4430?rd&i=4369341');}=
+} @media (prefers-color-scheme: light) { #_t::before 
+  {content:url('https://=afke4430.emltrk.com/v2/afke4430?rl&i=4369341');}} @media print{ #_t {back=
+ground-image:url('https://afke4430.emltrk.com/v2/afke4430?p&i=4369341');}=
+} div.OutlookMessageHeader {background-image:url('https://afke4430.emltrk.c=om/v2/afke4430?f&i=4369341')} table.moz-email-headers-table {background-i=
+mage:url('https://afke4430.emltrk.com/v2/afke4430?f&i=4369341')} blockquo=
+te #_t {background-image:url('https://afke4430.emltrk.com/v2/afke4430?f&i==4369341')} #MailContainerBody #_t {background-image:url('https://afke443=0.emltrk.com/v2/afke4430?f&i=4369341')}</style>
+<div id="_t"></div>
+<img src="https://afke4430.emltrk.com/v2/afke4430?i=4369341" width="1=
+" height="1" border="0" alt=""> 
+<a href=
+"http://go.litmus.com/ODY0LVZQWi0xMzEAAAGF2gU4NblMrlmAahOpkfaYN1De2YpgQKxtj=
+zHAs37KThne53mJsJfjU40nxeI38e1uO5JRoAA="
+></a>
+<img src="http://go.litmus.com/trk?t=1&mid=ODY0LVZQWi0xMzE6MDo4NzU5Oj=
+YyNTgwOjI0MjE3OTo2OTE4Ojk6MzY4MDY6NDM2OTM0MS0xOTE6cGl2YW5vdkB0cmFkaW5ndmlld=
+y5jb20%" width="1" height="1" style="display:none !important;" alt=
+="" />
+</body>
+</html>
+
