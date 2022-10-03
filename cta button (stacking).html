@@ -1,0 +1,127 @@
+<%
+  loadLibrary('/pers/offer-block-common.js'); 
+  
+  var block = JSON.parse(content.aemData);
+  var persContent = block.nbaEmailContent;
+  var condition = persContent.condition;
+  var nbaMetaAction = block.nbaMetaAction;
+   nbaMetaAction.airlineAnalyticsPlacement = "bodyContent_cta_buttonCentre";
+  var actTmplType = nbaMetaAction.actionTemplateType;
+  nbaMetaAction.airlineAnalyticsPlacement = "bodyContent_cta_buttonCentre";
+  var primaryCtaText = persContent.attributes.primaryCtaText;
+  var primaryLinkCategory = persContent.attributes.primaryLinkCategory;
+  var primaryLinkUrl = persContent.attributes.primaryLinkUrl;
+  primaryLinkUrl = addTags(primaryLinkUrl,primaryLinkCategory, isAirlineActionTemplateType(actTmplType));
+
+  var secondaryCtaText = persContent.attributes.secondaryCtaText; 
+  var secondaryLinkCategory = persContent.attributes.secondaryLinkCategory;   
+  var secondaryLinkUrl = persContent.attributes.secondaryLinkUrl; 
+  secondaryLinkUrl = addTags(secondaryLinkUrl,secondaryLinkCategory, isAirlineActionTemplateType(actTmplType));   
+
+%>
+<%= openConditional(condition) + instanciateTags(nbaMetaAction) %>
+<style type="text/css">
+@media screen and (max-width:600px) {
+         .stack { display: block !important; width: 100% !important; }
+    }
+</style>
+<!--CTA Code start -->
+<table class="wide-container" cellspacing="0" cellpadding="0" width="100%" align="center" bgcolor="#f4f5f6" border="0">
+<tr>
+   <td width="100%">
+      <table align="center" bgcolor="#f4f5f6" border="0" cellpadding="0" cellspacing="0" class="wide-container" width="100%">
+         <tr>
+            <td width="100%" style="margin-left: auto;margin-right: auto">
+               <table align="center" border="0" cellpadding="0" cellspacing="0" class="wide-container" width="100%" style="float:left">
+                  <tr>
+                     <td align="center" style="font-size: 0; line-height: 0;" valign="middle" width="100%">
+                        <table border="0" cellpadding="0" cellspacing="0" class="wide-container" width="680">
+                           <tr>
+                              <td align="center" width="100%">
+                                 <table border="0" style="background-color: #FFFFFF" bgcolor="#FFFFFF" cellpadding="0" cellspacing="0" class="wide-container" width="680">
+                                    <tr>
+                                       <td align="center" width="100%" class="pad-20">
+                                          <table align="center" border="0" style="background-color: #FFFFFF" bgcolor="#FFFFFF" cellpadding="0" cellspacing="0" class="wide-container" width="600">
+                                             <tr>  
+                                                <td width="100%" height="15" align="center"> 
+                                                   <img width="1" height="1" border="0" style="display: block" alt="" src="https://drive.google.com/file/d/1oo7CjTF1xKndqu8kZZs8-GLvo2zBgbq-/view?usp=sharing"/>  
+                                                </td> 
+                                             </tr> 
+                                             <tr>  
+                                                <td align="center" width="100%"> 
+                                                   <table class="wide-container" cellspacing="0" cellpadding="0" align="center"> 
+                                                      <tr>  
+                                                         <td align="center" valign="top" class="stack"> 
+                                                            <!--[if gte mso 9]>  
+                                                            <table border="0" cellpadding="0" cellspacing="0"> 
+                                                               <tr>  
+                                                                  <td width="140" class="wrap" align="center" valign="top">   
+                                                                     <![endif]-->   
+                                                                     <table class="cta" style="-webkit-border-radius: 6px 6px 6px 6px; -moz-border-radius: 6px 6px 6px 6px; border-radius: 6px 6px 6px 6px;" cellspacing="0" cellpadding="0" bgcolor="#e40000" align="center" width="170">   
+                                                                        <tr>  
+                                                                           <td style="font-family: 'Ciutadella', Arial, Verdana, sans-serif; font-size: 18px; color: #FFFFFF;" width="100%" height="40" valign="top" align="center">   
+                                                                              <a _category="<%= primaryLinkCategory %>" href="<%= primaryLinkUrl %>" title="<%= primaryCtaText %>" style="color: #FFFFFF; text-decoration: none; font-size: 14px; line-height: 38px; display: block; text-align: center;white-space: nowrap;padding-left: 24px;padding-right: 24px;" target="_blank"><%= primaryCtaText %></a> 
+                                                                           </td> 
+                                                                        </tr> 
+                                                                     </table> 
+                                                                     <!--[if gte mso 9]>  
+                                                                  </td> 
+                                                                  <td width="10" class="wrap" align="center" valign="top"> 
+                                                                     <![endif]-->   
+                                                                     
+                                                                     <!-- 
+                                                                     <table class="wide-container" width="10" align="center"> 
+                                                                        <tr>  
+                                                                           <td style="font-size: 0; line-height: 0" class="hide-mobile" colspan="1" height="1">   
+                                                                              <img src="https://drive.google.com/file/d/1oo7CjTF1xKndqu8kZZs8-GLvo2zBgbq-/view?usp=sharing" alt="" style="display: block;" width="1" height="1" border="0"/> 
+                                                                           </td> 
+                                                                        </tr> 
+                                                                     </table> -->
+
+                                                                     <!--[if gte mso 9]>  
+                                                                  </td> 
+                                                                  <td class="wrap" align="center" valign="top">   
+                                                                     <![endif]-->
+                                                                  </td>
+                                                                  <td class="Stack" align="center" valign="top" style="padding-left: 10px"> 
+                                                                     <% if( secondaryLinkUrl && secondaryCtaText){%> 
+                                                                     <table class="table-column-m20" style="border-radius: 6px 6px 6px 6px; border-width: 1px; border-style: solid; border-color: #e40000; border-collapse: separate; mso-table-lspace: 0;  mso-table-rspace: 0;" cellspacing="0" cellpadding="0" bgcolor="#ffffff" align="center" width="170">   
+                                                                        <tr>  
+                                                                           <td style="font-family: 'Ciutadella', Arial, Verdana, sans-serif; font-size: 18px; color: #e40000; padding-left: 24px; padding-right: 24px;" width="100%" valign="top" height="38" align="center"> 
+                                                                              <a _category="<%= secondaryLinkCategory %>" href="<%= secondaryLinkUrl %>" title="<%= secondaryCtaText %>" style="color: #e40000; text-decoration: none; font-size: 14px; line-height: 38px; display: block; text-align: center;white-space: nowrap;" target="_blank"><%= secondaryCtaText %></a>  
+                                                                           </td> 
+                                                                        </tr> 
+                                                                     </table> 
+                                                                      <% } %> 
+                                                                     <!--[if gte mso 9]>  
+                                                                  </td> 
+                                                               </tr> 
+                                                            </table> 
+                                                            <![endif]-->   
+                                                         </td> 
+                                                      </tr> 
+                                                   </table> 
+                                                </td> 
+                                             </tr> 
+                                             <tr>  
+                                                <td align="center" class="spacer_row_20" height="15" width="100%" style="font-size: 0; line-height: 0;">                <img alt="" border="0" height="1" src="https://drive.google.com/file/d/1oo7CjTF1xKndqu8kZZs8-GLvo2zBgbq-/view?usp=sharing" style="display: block;" width="1"/>    
+                                                </td>
+                                             </tr>
+                                          </table>
+                                       </td>
+                                    </tr>
+                                 </table>
+                              </td>
+                           </tr>
+                        </table>
+                     </td>
+                  </tr>
+               </table>
+            </td>
+         </tr>
+      </table>
+   </td>
+</tr>
+</table>
+<!--CTA Code end -->
+<%= closeConditional(condition) %>
