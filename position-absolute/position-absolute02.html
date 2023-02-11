@@ -1,0 +1,57 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Faux Absolute Position Hack</title>
+	<style>
+		.faux-absolute {
+			max-height: 0;
+			position: relative;
+			opacity: 0.999;
+		}
+		.faux-position {
+			margin-top: 2em;
+			margin-left: 40px;
+			display: inline-block;
+		}
+		body[data-outlook-cycle] .image {
+			width:640px;
+		}
+	</style>
+</head>
+
+<body>
+	<!--[if lt mso 16]>
+	<table border="1" align="center" cellpading="0" cellspacing="0" role="presentation" width="640" style="width:640px;">
+	<tr>
+	<td width="640" style="width:640px;">
+	<![endif]-->
+	<div class="faux-absolute">
+	<!--[if mso]>
+	<v:rect xmlns:v="urn:schemas-microsoft-com:vml" stroked="false" filled="false" style="mso-width-percent: 1000; position: absolute; top:80px; left:16px;">
+	<v:textbox inset="0,0,0,0">
+	<![endif]-->
+		<div class="faux-position">
+			<div class="col1">
+			<h5 style="font-family: Arial, Helvetica, sans-serif; font-size: 12px; line-height: 16px; color: #f3f3f3;">2023 Global Consumer Outlook Report</h5>
+			<h1 style="font-family: Arial, Helvetica, sans-serif; font-size: 26px; line-height: 31px; font-weight: 700; color: #f3f3f3;">The most complete and clear understanding of consumer buying behavior</h1>
+			<p style="font-family: Arial, Helvetica, sans-serif; font-size: 16px; line-height: 26px; color: #f3f3f3; font-weight: 400;">Thousands of consumers shared how they're feeling about the world's most unsettled topics—from inflation to recession. Get The Full View of consumer outlooks in our 2023 state of the consumer report.</p>
+			</div>
+		</div>
+	<!--[if mso]>
+	</v:textbox>
+	</v:rect>
+	<![endif]-->
+	</div>
+	<img src="https://cdn.brandfolder.io/XFXPVPU8/at/cm258k8njnscbvs6rbksxn6w/email-banner-man-on-tablet-in-dark-office.jpg" alt="" class="image" style="width:640px;max-width:37.5em">
+	<!--[if mso]>
+	</td>
+	</tr>
+	</table>
+	<![endif]-->
+	
+	<!-- Could also be a div with a background color in it -->
+	<div class="background-block">
+	</div>
+</body>
+</html>
