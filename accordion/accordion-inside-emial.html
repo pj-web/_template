@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" acc-body="IE=edge">
+  <meta name="viewport" acc-body="width=device-width,initial-scale=1">
+  <meta name="format-detection" acc-body="telephone=no, date=no, address=no, email=no">
+
+  <meta name="x-apple-disable-message-reformatting">
+<title>Email accordion</title>
+
+<style type="text/css">
+
+  /* Reset Styles below */
+/* Inline these styles upon send */
+
+	
+html,
+body {
+	margin: 0 auto !important;
+	padding: 0 !important;
+	height: 100% !important;
+	width: 100% !important;
+	-webkit-text-size-adjust: none;
+	-ms-text-size-adjust: none;
+}
+
+div#body-fix {  
+	box-sizing: border-box;
+	width: 100%;
+	font-size: 14px;
+}
+
+table {
+	border-collapse: collapse;
+	mso-table-lspace: 0pt !important;
+	mso-table-rspace: 0pt !important;
+	mso-cellspacing: 0px; 
+	mso-padding-alt: 0px 0px 0px 0px;
+}
+table#email-container { 
+	max-width: 600px;
+	margin-left: auto;
+	margin-right: auto;
+}
+td {
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+}
+
+h2, p, td, label {
+		font-family: Arial, Helvetica, sans-serif;
+	}
+
+.container {
+	padding: 20px;
+}
+	h2 {
+		margin: .2em 0; 
+		font-size:1.5em;
+	}
+
+	p {
+		margin: 0.9em 0;
+		font-size:1.15em;
+	}
+
+
+	/* Color palette test */
+		.bg-color0 {background-color:#ffffff;border: 5px solid #ffffff;} .tx-color0 {color:#ffffff;}
+	
+		.bg-color1 {background-color:#403e49;border: 5px solid #403e49;} .tx-color1 {color:#403e49;}
+		.bg-color2 {background-color:#ffffff;border: 5px solid #ffffff;} .tx-color2 {color:#ffffff;}
+		.bg-color3 {background-color:#00739f;border: 5px solid #00739f;} .tx-color3 {color:#00739f;}
+		.bg-color4 {background-color:#39c2ba;border: 5px solid #39c2ba;} .tx-color4 {color:#39c2ba;}
+		.bg-color5 {background-color:#d4d0cd;border: 5px solid #d4d0cd;} .tx-color5 {color:#d4d0cd;}
+	.tag {
+		display: inline-block;  margin: 0 1px 4px 0;border-radius: 3px;font-family: arial, sans-serif; font-size: 12px; line-height: 12px; text-decoration: none; white-space: nowrap;
+	}
+	
+
+.acc-title {
+	border: none;
+	background: #403e49;
+	background: -webkit-linear-gradient(rgba(57,194,186,1) 0%, rgba(0,115,159,1) 50%);
+	background: -o-linear-gradient(rgba(57,194,186,1) 0%, rgba(0,115,159,1) 50%);
+	background: linear-gradient(rgba(57,194,186,1) 0%, rgba(0,115,159,1) 50%);
+}
+	
+	
+	.acc-body {
+		border: none;
+	}
+	
+</style>
+<style data-ignore-inlining>
+	/* place interactive code within style that is not inlined */
+	
+	
+label {
+		cursor: pointer;
+	}
+	
+	#lightswitch > .acc-body {
+		display: block;
+	}
+
+	@keyframes appear {
+		from {
+			opacity: 0;
+			visibility: hidden;
+		}
+		to { 
+			opacity: 1;
+			visibility: visible;
+		}
+	}
+	.appear {
+		animation: appear 1.5s linear forwards;
+	}
+
+	.acc-title:hover {
+		background-color: #39c2ba !important;
+	}
+
+	
+	#Kinetic:checked ~ .acc-body {
+		display: none;
+	}
+	#Kinetic:checked ~ & .acc-body {
+		display: block !important;
+	}
+
+	#a1:checked ~ #acc-body-1,
+	#a2:checked ~ #acc-body-2,
+	#a3:checked ~ #acc-body-3 {
+		display: block !important;
+	}
+	
+	#Kinetic:checked ~* #icon1:after, 
+	#Kinetic:checked ~* #icon2:after, 
+	#Kinetic:checked ~* #icon3:after {
+		content: '\002B' !important;
+		color: #ffffff;
+		font-weight: bold;
+		float: right;
+	}
+
+	#a1:checked ~* #icon1:after,
+	#a2:checked ~* #icon2:after,
+	#a3:checked ~* #icon3:after {
+		content: "\2212" !important;
+	} 
+
+
+
+	</style>
+  <style>
+    .accordion-line {
+  height: 3px; width: 250px;
+  border-bottom: 1px solid grey;
+  border-top: 1px solid grey;
+  background: white;
+  margin-bottom: 3px;
+}
+.wrapper{
+  position:relative;
+}
+.wrapper p {
+  width: 250px;
+  font-size: 14px;
+  position: absolute;
+  top: 0;
+  margin: 0;
+}
+.wrapper p a{
+  margin: 0 auto;
+  width: 100px;
+  display: block;
+  background: #fff;
+}
+  </style>
+</head>
+<body id="body">
+  <div class="wrapper">
+    <p> <a href="#">3 older messages</a> </p>
+    <div class="accordion-line">&nbsp;</div>
+    <div class="accordion-line">&nbsp;</div>
+  </div>
+<div id="body-fix" aria-roledescription="email" aria-label="email name" lang="en" style="font-size:1rem;">
+	<!--[if gte mso 9]>
+<table width="600" border="0" cellspacing="0" cellpadding="0" align="center">
+  <tr>
+   <td>
+<![endif]-->
+
+<table id="email-container" width="100%" cellspacing="0" cellpadding="0" border="0"  style="position:contain;">
+	
+	
+<!-- Stack components here -->
+	<tr> 
+		<td style="">
+				   
+			 	
+			
+					<!-- Tab 1 acc-body -->
+						<table id="section" width="100%" cellspacing="0" cellpadding="0" border="0" role="presentation">
+							<tr>
+								<td >
+										<table width="100%" cellspacing="0" cellpadding="0" border="0" >
+												<tr>
+													<td id="lightswitch" style="width:100%;display: inline-block;">
+														<!--[if !mso]><!-->
+														<input type="checkbox" name="interactive" id="Kinetic" checked>
+														<label style="color: black;font-size: 0.8em">Lightswitch </label><br>
+														
+														<input type="radio" name="accordion" id="a1" checked>
+														<input type="radio" name="accordion" id="a2" >
+														<input type="radio" name="accordion" id="a3" >
+														<!--<![endif]--> 
+														
+														<!-- Accordion 1 -->
+															<label for="a1">
+																	<table id="acc-title-1" class="acc-title tx-color2" width="100%" cellspacing="0" cellpadding="0" border="0">
+																		<tr>
+																			<td style="padding: 10px;">
+																				<h2>
+																					Accordion One <i id="icon1" class="icons"></i>
+																				</h2>
+																			</td>
+																		</tr>
+																	</table>
+																</label>
+														
+												
+																		<table id="acc-body-1" class="acc-body dropdown bg-color5 tx-color1" width="100%" cellspacing="0" cellpadding="0" border="0">
+																			<tr>
+																				<td style="padding: 10px;">
+																					<p class="appear">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Odit asperiores mollitia incidunt, cumque velit, quod eaque tempore quibusdam deleniti praesentium explicabo harum cum voluptatibus sit odio voluptatum culpa commodi esse!</p>
+																				</td>
+																			</tr>
+																		</table>
+																	
+														
+														
+																	<!-- Accordion 2 -->
+																	<label for="a2">
+																	<table id="acc-title-2" class="acc-title tx-color2" width="100%" cellspacing="0" cellpadding="0" border="0">
+																		<tr>
+																			<td style="padding: 10px;">
+																				<h2>
+																				Accordion Two <i id="icon2" class="icons"></i>
+																				</h2>
+																			</td>
+																		</tr>
+																	</table>
+																</label>
+														
+																		<table id="acc-body-2" class="acc-body dropdown bg-color5 tx-color1" width="100%" cellspacing="0" cellpadding="0" border="0">
+																			<tr>
+																				<td style="padding: 10px;">
+																					<p class="appear">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Odit asperiores mollitia incidunt, cumque velit, quod eaque tempore quibusdam deleniti praesentium explicabo harum cum voluptatibus sit odio voluptatum culpa commodi esse!</p>
+																				</td>
+																			</tr>
+																		</table>
+														
+														<!-- Accordion 3 -->
+														<label for="a3">
+																	<table id="acc-title-3" class="acc-title tx-color2" width="100%" cellspacing="0" cellpadding="0" border="0">
+																		<tr>
+																			<td style="padding: 10px;">
+																				<h2>
+																				Accordion Three <i id="icon3" class="icons"></i>
+																				</h2>
+																			</td>
+																		</tr>
+																	</table>
+																</label>
+														
+																		<table id="acc-body-3" class="acc-body dropdown bg-color5 tx-color1" width="100%" cellspacing="0" cellpadding="0" border="0">
+																			<tr>
+																				<td style="padding: 10px;">
+																					<p class="appear">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Odit asperiores mollitia incidunt, cumque velit, quod eaque tempore quibusdam deleniti praesentium explicabo harum cum voluptatibus sit odio voluptatum culpa commodi esse!</p>
+																				</td>
+																			</tr>
+																		</table>
+															
+													</td>
+												</tr>
+											</table>
+								</td>
+							</tr>
+						</table>
+
+	
+
+			</td>
+		</tr>
+
+	
+	<tr class="module-1-column">
+		<td class="container">
+			<table width="100%" cellspacing="0" cellpadding="0" border="0">
+				<tr>
+					<td>
+						<h2 class="tx-color3">
+							Color palatte
+						</h2>
+						<a href="#" class="tag bg-color1 tx-color0">color1</a>
+						<a href="#" class="tag bg-color2 tx-color4">color2</a>
+						<a href="#" class="tag bg-color3 tx-color0">color3</a>
+						<a href="#" class="tag bg-color4 tx-color5">color4</a>
+						<a href="#" class="tag bg-color5 tx-color4">color5</a>
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+	
+</table>
+<!--[if gte mso 9]>
+   </td>
+  </tr>
+</table>
+<![endif]--> 
+
+</div>
+</body>
+</html>
