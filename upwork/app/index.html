@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Wellfit Email Signature Generator</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            padding: 0 16px;
+            color: #2E74B5;
+        }
+
+        h1 {
+            color: #2E74B5;
+        }
+
+        label {
+            display: inline-block;
+            width: 120px;
+            margin-bottom: 10px;
+        }
+
+        input {
+            width: 250px;
+            padding: 5px;
+            margin-bottom: 10px;
+        }
+
+        input:required {
+            border: 1px solid #2E74B5;
+        }
+
+        input:required:invalid {
+            border: 1px solid red;
+        }
+
+        button {
+            background-color: #2E74B5;
+            color: white;
+            border-radius: 8px;
+            padding: 10px 16px;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #245D91;
+        }
+
+        #output {
+            margin-top: 32px;
+            display: none;
+        }
+
+        #copyButton {
+            margin-top: 30px;
+        }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="image64.js"></script>
+    <script src="https://unpkg.com/html-to-docx@1.8.0/dist/html-to-docx.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.4.2/mammoth.browser.min.js"></script>
+</head>
+<body>
+<h1>Wellfit Email Signature Generator</h1>
+<form id="sigForm">
+    <label for="name"><b>Name*</b></label>
+    <input id="name" type="text" name="name" required/>
+    <br/>
+    <label for="title"><b>Title*</b></label>
+    <input id="title" type="text" name="title" required/>
+    <br/>
+    <label for="email"><b>Email*</b></label>
+    <input id="email" type="email" name="email" required/>
+    <br/>
+    <label for="phone"><b>Phone</b></label>
+    <input id="phone" type="tel" name="phone"/>
+    <br><br>
+    <label for="Docx"><b>Input Docx File</b></label>
+    <input id="docx" type="file" name="docx"/>
+    <br><br>
+    <button type="submit">Generate Signature</button>
+</form>
+<div id="output">
+    <div id="signature-content"></div>
+    <div>&nbsp;</div>
+</div>
+<!--
+<button id="copyHtmlButton">Copy Signature HTML</button>
+<button id="copyImageButton">Copy Signature as Image</button>
+<button id="copyBase64Button">Copy Signature as Base64 Image</button>
+<button id="convertToDocxButton">Convert to DOCX</button> -->
+<button id="generateDocxButton">Copy signature to Outlook Format</button>
+<div id="copyMessage"></div>
+
+<script>
+  document.getElementById('sigForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+    createSig();
+  });
+
+  createSig()
+
+  function createSig() {
+    const name = document.getElementById('name').value.trim() || 'Your Name';
+    const title = document.getElementById('title').value.trim() || 'Your Title';
+    const email = document.getElementById('email').value.trim() || 'your.email@example.com';
+    const phone = document.getElementById('phone').value.trim();
+
+    let signature = `
+      <div style="max-width: 500px;font-family: Arial, sans-serif; line-height: 1.5; color: black; display: flex; flex-direction: row; gap: 16px; padding: 16px; font-size: 14px; align-items: center;">
+        <div style="display: flex; flex-direction: column; gap: 8px; align-items: center;">
+          <img width="46" height="46" src="${image1}" alt="Inc 5000 Logo" style="max-width: 100%; height: auto;"/>
+          <img width="76" height="128" src="${image2}" alt="Great Place to Work" style="max-width: 100%; height: auto;"/>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 2px;">
+          <div style="color: #2E74B5; font-weight: bold; font-size: 18px;">${name}</div>
+          <div><span>${title} <span style="color: #2E74B5;">|</span> Wellfit Technologies</span></div>
+          <div>${email}</div>
+          <div>433 East Las Colinas Blvd, Suite 900, Irving, TX. 75039</div>
+          ${phone ? `<div>${phone}</div>` : ''}
+          <div style="display: flex; flex-direction: column; gap: 8px;">
+            <img width="80" height="17" src="${image3}" alt="Wellfit Logo" style="max-width: 100%; height: auto;"/>
+            <div style="display: flex; flex-direction: row; gap: 4px; align-items: center;">
+              <img width="20" height="20" src="${image4}" alt="LinkedIn" style="max-width: 100%; height: auto;"/>
+              <a href="https://www.linkedin.com/company/wellfit-tech" target="_blank" style="color: #2E74B5; text-decoration: none; line-height: 1">Connect with us!</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+
+    document.getElementById('signature-content').innerHTML = signature;
+    document.getElementById('output').style.display = 'block';
+
+    // Ensure all images are loaded before allowing copy
+    const images = document.getElementById('signature-content').getElementsByTagName('img');
+    Array.from(images).forEach(img => {
+      img.onload = () => console.log(`Image loaded: ${img.src}`);
+      img.onerror = () => console.error(`Failed to load image: ${img.src}`);
+    });
+  }
+
+  function convertToEmailHtml(html) {
+    // Remove any script tags
+    html = html.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '');
+    
+    // Convert style attributes to inline styles
+    const tempDiv = document.createElement('div');
+    tempDiv.innerHTML = html;
+    const elements = tempDiv.getElementsByTagName('*');
+    for (let i = 0; i < elements.length; i++) {
+      const element = elements[i];
+      const style = element.getAttribute('style');
+      if (style) {
+        element.removeAttribute('style');
+        element.setAttribute('style', style.replace(/"/g, "'"));
+      }
+    }
+    
+    // Remove any remaining class attributes
+    html = tempDiv.innerHTML.replace(/\sclass="[^"]*"/g, '');
+
+    // Convert flexbox layout to table-based layout
+    html = html.replace(/<div style="display:\s*flex[^>]*>/g, '<table cellpadding="0" cellspacing="0" border="0"><tr><td>');
+    html = html.replace(/<\/div>/g, '</td></tr></table>');
+
+    // Ensure images have width and height attributes
+    html = html.replace(/<img([^>]*)>/g, function(match, p1) {
+      if (!/width=/.test(p1)) {
+        p1 += ' width="auto"';
+      }
+      if (!/height=/.test(p1)) {
+        p1 += ' height="auto"';
+      }
+      return '<img' + p1 + '>';
+    });
+
+    // Wrap the entire signature in a table
+    html = `<table cellpadding="0" cellspacing="0" border="0" style="font-family: Arial, sans-serif; font-size: 14px; line-height: 1.5; color: black;"><tr><td>${html}</td></tr></table>`;
+
+    return html;
+  }
+
+  function convertToTableFormat(html) {
+    // This function is no longer needed as we're converting to table layout in convertToEmailHtml
+    return html;
+  }
+
+  function copyToClipboard(text) {
+    return navigator.clipboard.writeText(text);
+  }
+
+
+  // new function from Aris UpWork
+  document.getElementById('generateDocxButton').addEventListener('click', function() {
+    document.getElementById('copyMessage').innerHTML = "You can now copy it to your Outlook signature";
+    const docxFile = document.getElementById('docx').files[0];
+    if (docxFile) {
+        readDocxAsHtml(docxFile)
+          .then(html => {
+            const modifiedHtml = replacePlaceholders(html);
+            copyHtmlToClipboard(modifiedHtml); // Copy modified HTML content to clipboard
+            
+          })
+          .catch(err => console.error('Error reading DOCX:', err));
+      } else {
+        alert("Please select a DOCX file first.");
+      }
+
+  });
+
+    // Function to read the selected .docx file and convert to HTML
+    function readDocxAsHtml(file) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          const options = {
+            convertImage: mammoth.images.imgElement(function(image) {
+              return image.read("base64").then(function(imageBuffer) {
+                return {
+                  src: "data:" + image.contentType + ";base64," + imageBuffer
+                };
+              });
+            }),
+            styleMap: [
+              "p[style-name='Normal'] => p:fresh",
+              "p[style-name='Heading 1'] => h1:fresh",
+              "p[style-name='Heading 2'] => h2:fresh",
+              "p[style-name='Heading 3'] => h3:fresh",
+              "r[style-name='Strong'] => strong",
+              "r[style-name='Emphasis'] => em",
+              "r[color] => span[style='color: {color}']",
+              "r[size] => span[style='font-size: {size}pt']"
+            ]
+          };
+          mammoth.convertToHtml({ arrayBuffer: e.target.result }, options)
+            .then(result => resolve(result.value))
+            .catch(err => reject(err));
+        };
+        reader.onerror = reject;
+        reader.readAsArrayBuffer(file);
+      });
+    }
+
+        // Function to replace placeholders in HTML content
+    function replacePlaceholders(html) {
+      const placeholders = {
+        '{name}': document.getElementById('name').value,
+        '{title}': document.getElementById('title').value,
+        '{email}': document.getElementById('email').value,
+        '{phone}': document.getElementById('phone').value
+      };
+
+      for (const [placeholder, value] of Object.entries(placeholders)) {
+        html = html.replace(new RegExp(placeholder, 'g'), value);
+      }
+
+      return html;
+    }
+
+    // Function to copy HTML content to clipboard
+    function copyHtmlToClipboard(html) {
+      const blob = new Blob([html], { type: 'text/html' });
+      const data = [new ClipboardItem({ 'text/html': blob })];
+      
+      navigator.clipboard.write(data)
+        .then(() => {
+          alert("Content copied to clipboard (including styles and images)");
+        })
+        .catch(err => {
+          console.error('Failed to copy: ', err);
+        })
+        .finally(() => {
+          console.log("Copy operation completed");
+          showCopyMessage("Content copied to clipboard (including styles and images)");
+        });
+
+        // stop the function here
+        return;
+    }
+
+    function showCopyMessage(alertMessage) {
+      alert(alertMessage);
+      const copyMessage = document.getElementById('copyMessage');
+      copyMessage.style.display = 'block';
+      setTimeout(() => {
+        copyMessage.style.display = 'none';
+      }, 10000); // Hide the message after 10 seconds
+    }
+
+  // Add this function to set the default DOCX file
+  function setDefaultDocx() {
+    const defaultDocxPath = 'example-save-from-word.docx';
+    fetch(defaultDocxPath)
+      .then(response => response.blob())
+      .then(blob => {
+        const file = new File([blob], 'example-save-from-word.docx', { type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' });
+        
+        // Create a new DataTransfer object and add the file to it
+        const dataTransfer = new DataTransfer();
+        dataTransfer.items.add(file);
+        
+        // Set the file input's files property
+        document.getElementById('docx').files = dataTransfer.files;
+        
+        console.log('Default DOCX file set');
+      })
+      .catch(error => console.error('Error setting default DOCX:', error));
+  }
+
+  // Call this function when the page loads
+  window.addEventListener('load', setDefaultDocx);
+
+  // Modify the event listener for the generateDocxButton
+  document.getElementById('generateDocxButton').addEventListener('click', function() {
+    const docxFile = document.getElementById('docx').files[0];
+
+    if (docxFile) {
+      readDocxAsHtml(docxFile)
+        .then(html => {
+          const modifiedHtml = replacePlaceholders(html);
+          copyHtmlToClipboard(modifiedHtml);
+        })
+        .catch(err => console.error('Error reading DOCX:', err));
+    } else {
+      alert("No DOCX file selected. Please ensure 'example-save-from-word.docx' is in the same directory as this HTML file.");
+    }
+  });
+
+</script>
+</body>
+</html>
